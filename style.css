@@ -1,0 +1,6365 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #fdf1e8;
+    color: #e90070;
+    font-family: "DM Sans", sans-serif;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+/* Saat cover masih terbuka */
+body.cover-active {
+    overflow: hidden;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =====================================================
+   COVER
+===================================================== */
+
+.opening-page {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    min-height: 100svh;
+
+    overflow: hidden;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #fdf1e8;
+
+    transition:
+        opacity 1s ease,
+        transform 1.15s cubic-bezier(.22,1,.36,1),
+        filter 1s ease;
+}
+
+
+.opening-page.hide {
+
+    opacity: 0;
+
+    transform:
+        scale(1.08)
+        translateY(-35px);
+
+    filter: blur(12px);
+
+    pointer-events: none;
+
+}
+
+
+/* =====================================================
+   COVER CONTENT
+===================================================== */
+
+.content {
+
+    position: relative;
+
+    z-index: 10;
+
+    width: min(86%, 360px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+}
+
+
+.small-title {
+
+    margin-bottom: 20px;
+
+    color: #f39a00;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 20px;
+
+    letter-spacing: 2px;
+
+    animation:
+        fadeDown 1s ease forwards,
+        gentleFloat 4s ease-in-out infinite;
+
+}
+
+
+.couple-name {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    color: #e90070;
+
+    font-family: "Chewy", cursive;
+
+    font-size: clamp(43px, 12vw, 57px);
+
+    line-height: .98;
+
+    font-weight: 400;
+
+}
+
+
+.couple-name strong {
+
+    margin: 7px 0;
+
+    color: #f3b400;
+
+    font-size: 28px;
+
+    font-weight: 400;
+
+    animation: spinLittle 4s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   GUEST BOX
+===================================================== */
+
+.guest-box {
+
+    width: 235px;
+
+    margin-top: 21px;
+
+    padding: 14px 10px;
+
+    border: 2px dashed #ff9bc5;
+
+    border-radius: 21px;
+
+    background: rgba(255,255,255,.15);
+
+    animation: guestFloat 4s ease-in-out infinite;
+}
+
+
+.guest-label {
+
+    color: #99918d;
+
+    font-size: 14px;
+
+    margin-bottom: 4px;
+}
+
+
+.guest-name {
+
+    color: #e90070;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 20px;
+}
+
+
+/* =====================================================
+   OPEN BUTTON
+===================================================== */
+
+.open-button {
+
+    width: 270px;
+
+    height: 62px;
+
+    margin-top: 14px;
+
+    border: 0;
+
+    border-radius: 40px;
+
+    background: #e90070;
+
+    color: white;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 19px;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 0 6px #fdf1e8,
+        0 0 0 8px #f5b1ce;
+
+    animation:
+        buttonPulse 2.7s ease-in-out infinite;
+
+    transition: .25s;
+}
+
+
+.open-button:hover {
+
+    transform: scale(1.04);
+
+}
+
+
+.open-button:active {
+
+    transform: scale(.95);
+
+}
+
+
+.heart {
+
+    display: inline-block;
+
+    margin-right: 7px;
+
+    animation: heartBeat 1.4s infinite;
+}
+
+
+/* =====================================================
+   MUSIC NOTE
+===================================================== */
+
+.music-note {
+
+    margin-top: 14px;
+
+    color: #a79c98;
+
+    font-family: "Patrick Hand", cursive;
+
+    font-size: 16px;
+
+    font-style: italic;
+}
+
+
+/* =====================================================
+   FLOWER DOODLE
+===================================================== */
+
+.doodle-flower {
+
+    position: absolute;
+
+    width: 125px;
+
+    height: 125px;
+
+    pointer-events: none;
+
+}
+
+
+.doodle-flower .petal {
+
+    position: absolute;
+
+    width: 31px;
+
+    height: 58px;
+
+    left: 47px;
+
+    top: 34px;
+
+    border: 4px solid #ef9fc2;
+
+    border-radius: 50%;
+
+    transform-origin: center bottom;
+}
+
+
+.doodle-flower .p1 {
+    transform: rotate(0deg) translateY(-32px);
+}
+
+.doodle-flower .p2 {
+    transform: rotate(72deg) translateY(-32px);
+}
+
+.doodle-flower .p3 {
+    transform: rotate(144deg) translateY(-32px);
+}
+
+.doodle-flower .p4 {
+    transform: rotate(216deg) translateY(-32px);
+}
+
+.doodle-flower .p5 {
+    transform: rotate(288deg) translateY(-32px);
+}
+
+
+.flower-top-left {
+
+    left: -48px;
+
+    top: 55px;
+
+    animation:
+        flowerFloat 6s ease-in-out infinite,
+        flowerRotate 18s linear infinite;
+
+}
+
+
+.flower-bottom-right {
+
+    right: -42px;
+
+    bottom: 45px;
+
+    animation:
+        flowerFloat 7s ease-in-out infinite,
+        flowerRotateReverse 20s linear infinite;
+
+}
+
+
+.sparkle {
+
+    position: absolute;
+
+    color: #f4bd1d;
+
+    font-size: 42px;
+
+    animation:
+        sparklePulse 2s infinite,
+        sparkleRotate 5s linear infinite;
+
+}
+
+
+.sparkle-one {
+
+    right: 54px;
+
+    top: 108px;
+
+}
+
+
+/* =====================================================
+   SMALL FLOWER
+===================================================== */
+
+.small-pink-flower {
+
+    position: absolute;
+
+    left: 48px;
+
+    bottom: 148px;
+
+    width: 35px;
+
+    height: 35px;
+
+    animation:
+        littleFlowerBounce 3s ease-in-out infinite,
+        littleFlowerSpin 9s linear infinite;
+
+}
+
+
+.small-pink-flower span {
+
+    position: absolute;
+
+    width: 15px;
+
+    height: 21px;
+
+    left: 10px;
+
+    top: 6px;
+
+    background: #ed0871;
+
+    border-radius: 50%;
+
+}
+
+
+.small-pink-flower span:nth-child(1) {
+    transform: rotate(0deg) translateY(-7px);
+}
+
+.small-pink-flower span:nth-child(2) {
+    transform: rotate(72deg) translateY(-7px);
+}
+
+.small-pink-flower span:nth-child(3) {
+    transform: rotate(144deg) translateY(-7px);
+}
+
+.small-pink-flower span:nth-child(4) {
+    transform: rotate(216deg) translateY(-7px);
+}
+
+.small-pink-flower span:nth-child(5) {
+    transform: rotate(288deg) translateY(-7px);
+}
+
+
+.small-pink-flower i {
+
+    position: absolute;
+
+    width: 9px;
+
+    height: 9px;
+
+    left: 13px;
+
+    top: 13px;
+
+    background: #ed0871;
+
+    border-radius: 50%;
+
+}
+
+
+/* =====================================================
+   INVITATION
+===================================================== */
+
+.invitation {
+
+    position: relative;
+
+    opacity: 0;
+
+    transform:
+        scale(.96)
+        translateY(30px);
+
+    filter: blur(8px);
+
+    transition:
+        opacity 1.2s ease .15s,
+        transform 1.25s cubic-bezier(.22,1,.36,1),
+        filter 1.2s ease .15s;
+
+}
+
+
+.invitation.show {
+
+    opacity: 1;
+
+    transform: scale(1) translateY(0);
+
+    filter: blur(0);
+
+}
+
+
+/* =====================================================
+   GENERAL SECTION
+===================================================== */
+
+.section {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 100svh;
+
+    overflow: hidden;
+
+    padding-bottom: 95px;
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+.home-section {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    background: #fdf1e8;
+
+}
+
+
+.home-content {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    padding-top: 62px;
+
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.section-title {
+
+    color: #e90070;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 34px;
+
+    letter-spacing: 1px;
+
+    animation: titleFloat 4s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   HEART PHOTO
+===================================================== */
+
+.heart-photo-wrapper {
+
+    position: relative;
+
+    width: 290px;
+
+    height: 290px;
+
+    margin-top: 8px;
+
+    animation: heartFloat 5s ease-in-out infinite;
+
+}
+
+
+.heart-photo {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+
+    filter:
+        drop-shadow(0 5px 3px rgba(243,154,10,.12))
+        drop-shadow(0 12px 18px rgba(233,0,112,.08));
+}
+
+
+/* =====================================================
+   CIRCLE TEXT
+===================================================== */
+
+.circle-text {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 250px;
+    height: 250px;
+
+    transform: translate(-50%, -50%);
+
+    color: #f39a00;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 16px;
+
+    letter-spacing: 3px;
+
+    pointer-events: none;
+
+    opacity: .95;
+
+    /* TIDAK BERPUTAR */
+    animation: none;
+
+    /* sedikit lebih lembut */
+    text-shadow: 0 1px 0 rgba(255,255,255,.3);
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+.wedding-date {
+
+    margin-top: 2px;
+
+    color: #777;
+
+    font-size: 14px;
+
+    animation: dateFloat 4s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   WAVE
+===================================================== */
+
+.wave-line {
+
+    width: 100%;
+
+    height: 60px;
+
+    margin-top: 48px;
+
+}
+
+
+.wave-line svg {
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+
+.wave-line path {
+
+    fill: none;
+
+    stroke: #e90070;
+
+    stroke-width: 8;
+
+    stroke-linecap: round;
+
+    animation: waveMove 4s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   PINK BLOB FLOWER
+===================================================== */
+
+.blob-flower {
+
+    position: absolute;
+
+    left: -20px;
+
+    bottom: 280px;
+
+    width: 85px;
+
+    height: 85px;
+
+    animation:
+        blobFloat 5s ease-in-out infinite,
+        blobRotate 12s linear infinite;
+
+}
+
+
+.blob-flower span {
+
+    position: absolute;
+
+    width: 42px;
+
+    height: 42px;
+
+    background: #f19ac3;
+
+    border-radius: 50%;
+
+    left: 22px;
+
+    top: 22px;
+
+}
+
+
+.blob-flower span:nth-child(1) {
+    transform: translateY(-25px);
+}
+
+.blob-flower span:nth-child(2) {
+    transform: translateX(25px);
+}
+
+.blob-flower span:nth-child(3) {
+    transform: translateY(25px);
+}
+
+.blob-flower span:nth-child(4) {
+    transform: translateX(-25px);
+}
+
+.blob-flower span:nth-child(5) {
+
+    width: 25px;
+
+    height: 25px;
+
+    left: 31px;
+
+    top: 31px;
+
+    background: #f19ac3;
+
+}
+
+
+/* =====================================================
+   SPARKLES
+===================================================== */
+
+.home-sparkle {
+
+    position: absolute;
+
+    color: #f4c52d;
+
+    font-size: 30px;
+
+    animation:
+        sparklePulse 2.3s infinite,
+        sparkleRotate 6s linear infinite;
+
+}
+
+
+.sparkle-a {
+
+    left: 64px;
+
+    top: 125px;
+
+}
+
+
+.sparkle-b {
+
+    right: 66px;
+
+    top: 280px;
+
+}
+
+
+.tiny-sparkle {
+
+    position: absolute;
+
+    right: 85px;
+
+    bottom: 360px;
+
+    color: #f4c52d;
+
+    font-size: 22px;
+
+    animation: sparklePulse 2s infinite;
+
+}
+
+
+/* =====================================================
+   GUEST
+===================================================== */
+
+.guest-section {
+
+    background: #fdf1e8;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: center;
+
+}
+
+
+.section-inner {
+
+    width: min(88%, 350px);
+
+    padding-top: 50px;
+
+    text-align: center;
+
+}
+
+
+.orange-title {
+
+    color: #f39a00;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 29px;
+
+    letter-spacing: 1px;
+
+    animation: titleFloat 4s infinite;
+}
+
+
+.guest-description {
+
+    margin-top: 28px;
+
+    color: #4d4d4d;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+}
+
+
+.floating-heart {
+
+    position: absolute;
+
+    right: 35px;
+
+    bottom: 170px;
+
+    width: 60px;
+
+    height: 60px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e90070;
+
+    color: white;
+
+    font-size: 26px;
+
+    box-shadow: 0 8px 25px rgba(233,0,112,.22);
+
+    animation:
+        heartFloat 3s ease-in-out infinite,
+        heartBeat 2s infinite;
+}
+
+
+/* =====================================================
+   PLACEHOLDER
+===================================================== */
+
+.placeholder-section {
+
+    min-height: 100svh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px;
+
+    background: #fff8f3;
+
+}
+
+
+.placeholder-section h2 {
+
+    font-family: "Chewy", cursive;
+
+    font-size: 32px;
+
+    color: #e90070;
+
+}
+
+
+.placeholder-section p {
+
+    max-width: 300px;
+
+    margin-top: 15px;
+
+    color: #777;
+
+    line-height: 1.7;
+
+}
+
+
+/* =====================================================
+   MUSIC BUTTON
+===================================================== */
+
+.music-button {
+
+    position: fixed;
+
+    z-index: 900;
+
+    right: 22px;
+
+    bottom: 78px;
+
+    width: 58px;
+
+    height: 58px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #e90070;
+
+    color: white;
+
+    font-size: 27px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.18);
+
+    animation:
+        musicFloat 3s ease-in-out infinite;
+
+}
+
+
+.music-button.playing {
+
+    animation:
+        musicFloat 3s ease-in-out infinite,
+        musicPulse 1.6s ease-in-out infinite;
+
+}
+
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
+
+.bottom-nav {
+
+    position: fixed;
+
+    z-index: 800;
+
+    left: 50%;
+
+    bottom: 0;
+
+    transform: translateX(-50%);
+
+    width: min(100%, 430px);
+
+    height: 72px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-around;
+
+    background: rgba(255,250,247,.97);
+
+    border-top: 1px solid #f3b6ce;
+
+    box-shadow:
+        0 -5px 20px rgba(0,0,0,.04);
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+.nav-item {
+
+    flex: 1;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 4px;
+
+    color: #a39a96;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    transition: .3s;
+
+}
+
+
+.nav-icon {
+
+    font-size: 22px;
+
+    line-height: 1;
+
+}
+
+
+.nav-item.active {
+
+    color: #e90070;
+
+}
+
+
+.nav-item.active .nav-icon {
+
+    animation:
+        navBounce .7s ease;
+}
+
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes fadeDown {
+
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes gentleFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+
+}
+
+
+@keyframes guestFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+}
+
+
+@keyframes buttonPulse {
+
+    0%,100% {
+        box-shadow:
+            0 0 0 6px #fdf1e8,
+            0 0 0 8px #f5b1ce;
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 6px #fdf1e8,
+            0 0 0 12px rgba(245,177,206,.45),
+            0 10px 30px rgba(233,0,112,.12);
+    }
+
+}
+
+
+@keyframes heartBeat {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.25);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+}
+
+
+@keyframes flowerFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(12px);
+    }
+
+}
+
+
+@keyframes flowerRotate {
+
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+
+}
+
+
+@keyframes flowerRotateReverse {
+
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: -360deg;
+    }
+
+}
+
+
+@keyframes sparklePulse {
+
+    0%,100% {
+        opacity: .5;
+        transform: scale(.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+}
+
+
+@keyframes sparkleRotate {
+
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+
+}
+
+
+@keyframes spinLittle {
+
+    0%,100% {
+        transform: rotate(-8deg);
+    }
+
+    50% {
+        transform: rotate(8deg);
+    }
+
+}
+
+
+@keyframes littleFlowerBounce {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-9px);
+    }
+
+}
+
+
+@keyframes littleFlowerSpin {
+
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+
+}
+
+
+@keyframes titleFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+
+}
+
+
+@keyframes heartFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+}
+
+
+
+@keyframes dateFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+}
+
+
+@keyframes waveMove {
+
+    0%,100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-8px);
+    }
+
+}
+
+
+@keyframes blobFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+}
+
+
+@keyframes blobRotate {
+
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+
+}
+
+
+@keyframes musicFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+
+}
+
+
+@keyframes musicPulse {
+
+    0%,100% {
+        box-shadow:
+            0 8px 25px rgba(0,0,0,.18);
+    }
+
+    50% {
+        box-shadow:
+            0 8px 25px rgba(233,0,112,.25),
+            0 0 0 9px rgba(233,0,112,.08);
+    }
+
+}
+
+
+@keyframes navBounce {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media (min-width: 700px) {
+
+    body {
+        background: #ddd;
+    }
+
+    .opening-page,
+    .invitation {
+        width: 430px;
+        margin: auto;
+    }
+
+    .opening-page {
+        left: 50%;
+        right: auto;
+        width: 430px;
+        transform: translateX(-50%);
+    }
+
+    .opening-page.hide {
+        transform:
+            translateX(-50%)
+            scale(1.08)
+            translateY(-35px);
+    }
+
+    .invitation {
+        background: #fdf1e8;
+    }
+
+}
+
+/* =====================================================
+   FIX COVER / SCROLL
+===================================================== */
+
+.opening-page {
+    pointer-events: auto;
+    touch-action: auto;
+}
+
+.opening-page.hide {
+    pointer-events: none;
+}
+
+.invitation {
+    pointer-events: auto;
+    min-height: 100vh;
+}
+
+
+/* Pastikan tombol cover bisa ditekan */
+
+.open-button {
+    position: relative;
+    z-index: 50;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+
+/* Navbar selalu bisa disentuh */
+
+.bottom-nav {
+    pointer-events: auto;
+}
+
+.nav-item {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+
+/* Tombol musik */
+
+.music-button {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* =====================================
+   FIX FINAL OPENING
+===================================== */
+
+html {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+/* Cover */
+
+.opening-page {
+    pointer-events: auto;
+}
+
+
+/* Tombol harus bisa ditekan */
+
+.open-button {
+    position: relative;
+    z-index: 99999;
+    pointer-events: auto !important;
+    cursor: pointer;
+}
+
+
+/* Saat cover ditutup */
+
+.opening-page.closing {
+    opacity: 0;
+    transform: scale(1.08);
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+
+/* Website */
+
+.invitation {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+}
+
+
+/* Website setelah dibuka */
+
+.invitation.visible {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+}/* =====================================
+   FIX FINAL OPENING
+===================================== */
+
+html {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+/* Cover */
+
+.opening-page {
+    pointer-events: auto;
+}
+
+
+/* Tombol harus bisa ditekan */
+
+.open-button {
+    position: relative;
+    z-index: 99999;
+    pointer-events: auto !important;
+    cursor: pointer;
+}
+
+
+/* Saat cover ditutup */
+
+.opening-page.closing {
+    opacity: 0;
+    transform: scale(1.08);
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+
+/* Website */
+
+.invitation {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+}
+
+
+/* Website setelah dibuka */
+
+.invitation.visible {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+}
+
+/* =====================================================
+   NAVBAR ICON CUTE
+===================================================== */
+
+.nav-icon {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        transform .3s ease,
+        color .3s ease;
+}
+
+
+.nav-icon svg {
+    width: 22px;
+    height: 22px;
+
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.8;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    transition:
+        transform .3s ease,
+        stroke-width .3s ease;
+}
+
+
+.nav-item.active .nav-icon {
+    transform: translateY(-2px) scale(1.08);
+
+    color: #e90070;
+}
+
+
+.nav-item.active .nav-icon svg {
+    stroke-width: 2.2;
+}
+
+
+.nav-item:hover .nav-icon {
+    transform: translateY(-3px) scale(1.08);
+}
+
+
+.nav-item:active .nav-icon {
+    transform: scale(.9);
+}
+
+/* =====================================================
+   FOTO LOVE - POSISI BARU
+===================================================== */
+
+.heart-photo-wrapper {
+
+    position: relative;
+
+    width: 330px;
+
+    height: 400px;
+
+    margin: 25px auto 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+}
+
+
+/* =====================================================
+   NAMA PENGANTIN
+===================================================== */
+
+.couple-photo-name {
+
+    position: absolute;
+
+    top: 0;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 100%;
+
+    z-index: 20;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    white-space: nowrap;
+
+    text-align: center;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 18px;
+
+    letter-spacing: 2px;
+
+    color: #f39a0a;
+
+    pointer-events: none;
+
+    animation: none !important;
+
+}
+
+
+/* WULAN dan PAKSEH */
+
+.couple-photo-name span {
+
+    display: inline-block;
+
+    animation: none !important;
+
+    transform: none !important;
+
+}
+
+
+/* simbol & */
+
+.couple-photo-name strong {
+
+    display: inline-block;
+
+    color: #e90070;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 20px;
+
+    animation: none !important;
+
+    transform: none !important;
+
+}
+
+
+/* =====================================================
+   FOTO LOVE
+===================================================== */
+
+.heart-photo {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 38px;
+
+    transform: translateX(-50%);
+
+    width: 300px;
+
+    height: 270px;
+
+    z-index: 10;
+
+    overflow: visible;
+
+    filter:
+        drop-shadow(
+            0 5px 5px
+            rgba(243,154,10,.12)
+        )
+        drop-shadow(
+            0 12px 18px
+            rgba(233,0,112,.08)
+        );
+
+}
+
+
+/* =====================================================
+   DEKORASI BELAKANG
+===================================================== */
+
+.heart-decoration {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+}
+
+
+/* lingkaran */
+
+.deco-circle {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+}
+
+
+/* pink */
+
+.circle-1 {
+
+    width: 125px;
+    height: 125px;
+
+    left: -28px;
+    top: 95px;
+
+    background:
+        rgba(245,157,199,.20);
+
+    animation:
+        heartFloat 5s ease-in-out infinite;
+
+}
+
+
+/* kuning */
+
+.circle-2 {
+
+    width: 85px;
+    height: 85px;
+
+    right: -18px;
+    top: 45px;
+
+    background:
+        rgba(255,198,47,.18);
+
+    animation:
+        heartFloat 6s ease-in-out infinite reverse;
+
+}
+
+
+/* pink kecil */
+
+.circle-3 {
+
+    width: 60px;
+    height: 60px;
+
+    right: 5px;
+    bottom: 70px;
+
+    background:
+        rgba(233,0,112,.10);
+
+    animation:
+        heartFloat 4s ease-in-out infinite;
+
+}
+
+
+/* =====================================================
+   SPARKLE
+===================================================== */
+
+.deco-star {
+
+    position: absolute;
+
+    color: #ffc62f;
+
+    font-family: Arial, sans-serif;
+
+    animation:
+        heartSparkle 3s ease-in-out infinite;
+
+}
+
+
+/* kiri atas */
+
+.star-1 {
+
+    left: 5px;
+    top: 55px;
+
+    font-size: 25px;
+
+}
+
+
+/* kanan */
+
+.star-2 {
+
+    right: 0;
+    top: 170px;
+
+    font-size: 20px;
+
+    animation-delay: .8s;
+
+}
+
+
+/* bawah */
+
+.star-3 {
+
+    left: 30px;
+    bottom: 55px;
+
+    font-size: 17px;
+
+    animation-delay: 1.5s;
+
+}
+
+
+/* =====================================================
+   TITIK
+===================================================== */
+
+.deco-dot {
+
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #ef92be;
+
+    opacity: .75;
+
+    animation:
+        heartDot 4s ease-in-out infinite;
+
+}
+
+
+.dot-1 {
+
+    left: 35px;
+    top: 150px;
+
+}
+
+
+.dot-2 {
+
+    right: 30px;
+    top: 110px;
+
+    width: 6px;
+    height: 6px;
+
+    animation-delay: .5s;
+
+}
+
+
+.dot-3 {
+
+    left: 55px;
+    bottom: 100px;
+
+    width: 6px;
+    height: 6px;
+
+    animation-delay: 1s;
+
+}
+
+
+.dot-4 {
+
+    right: 48px;
+    bottom: 125px;
+
+    width: 10px;
+    height: 10px;
+
+    background: #ffc52c;
+
+    animation-delay: 1.5s;
+
+}
+
+
+/* =====================================================
+   BUNGA
+===================================================== */
+
+.deco-flower {
+
+    position: absolute;
+
+    color: #ed82b8;
+
+    font-size: 30px;
+
+    opacity: .65;
+
+    animation:
+        heartFlower 6s ease-in-out infinite;
+
+}
+
+
+.flower-1 {
+
+    left: -10px;
+    bottom: 130px;
+
+}
+
+
+.flower-2 {
+
+    right: -5px;
+    top: 105px;
+
+    font-size: 24px;
+
+    color: #f5a5c9;
+
+    animation-delay: 1.2s;
+
+}
+
+
+/* =====================================================
+   ANIMASI HALUS
+===================================================== */
+
+@keyframes heartFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-9px)
+            scale(1.04);
+
+    }
+
+}
+
+
+@keyframes heartSparkle {
+
+    0%,
+    100% {
+
+        opacity: .55;
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        opacity: 1;
+
+        transform:
+            translateY(-7px)
+            rotate(12deg);
+
+    }
+
+}
+
+
+@keyframes heartDot {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-6px);
+
+    }
+
+}
+
+
+@keyframes heartFlower {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(-5deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-8px)
+            rotate(8deg);
+
+    }
+
+}
+
+/* =====================================================
+   TAMU TERSAYANG - HOME
+===================================================== */
+
+.guest-home {
+    position: relative;
+
+    z-index: 5;
+
+    padding:
+        45px
+        25px
+        70px;
+
+    text-align: center;
+}
+
+
+.guest-home .orange-title {
+    margin: 0;
+
+    color: #f39a0a;
+
+    font-family:
+        "Chewy",
+        cursive;
+
+    font-size: 28px;
+
+    letter-spacing: 2px;
+}
+
+
+.guest-description {
+    max-width: 330px;
+
+    margin: 25px auto 0;
+
+    color: #444;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.9;
+
+}
+
+
+.guest-floating-heart {
+    position: absolute;
+
+    right: 18px;
+
+    bottom: 15px;
+
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #e90070;
+
+    color: white;
+
+    border-radius: 50%;
+
+    font-size: 25px;
+
+    box-shadow:
+        0 8px 22px
+        rgba(233,0,112,.25);
+
+    animation:
+        guestHeartFloat 3s ease-in-out infinite;
+
+}
+
+
+@keyframes guestHeartFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            rotate(-5deg);
+    }
+
+    50% {
+        transform:
+            translateY(-8px)
+            rotate(5deg);
+    }
+
+}
+
+/* =====================================================
+   HALAMAN ACARA
+===================================================== */
+
+.acara-section {
+    position: relative;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    background: #fff5ec;
+
+    padding:
+        55px
+        18px
+        120px;
+
+    box-sizing: border-box;
+}
+
+
+/* CONTENT */
+
+.acara-content {
+    position: relative;
+
+    z-index: 10;
+
+    width: 100%;
+    max-width: 390px;
+
+    margin: auto;
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   JUDUL
+===================================================== */
+
+.acara-title {
+    margin: 0;
+
+    color: #e90070;
+
+    font-family:
+        "Chewy",
+        cursive;
+
+    font-size: 30px;
+
+    letter-spacing: 2px;
+
+    line-height: 1;
+}
+
+
+.lokasi-title {
+    margin-top: 48px;
+
+    color: #f39a0a;
+}
+
+
+/* =====================================================
+   NOVEMBER
+===================================================== */
+
+.acara-month {
+    margin-top: 28px;
+
+    color: #f5bd0b;
+
+    font-family:
+        "Chewy",
+        cursive;
+
+    font-size: 43px;
+
+    line-height: .95;
+
+    letter-spacing: 2px;
+}
+
+
+.acara-year {
+    color: #f5bd0b;
+
+    font-family:
+        "Chewy",
+        cursive;
+
+    font-size: 43px;
+
+    line-height: 1;
+}
+
+
+/* =====================================================
+   KALENDER NOVEMBER 2026
+===================================================== */
+
+.calendar-box {
+
+    width: 100%;
+
+    max-width: 350px;
+
+    margin:
+        28px
+        auto
+        0;
+
+    padding:
+        18px
+        12px
+        20px;
+
+    box-sizing: border-box;
+
+    background: rgba(255,255,255,.35);
+
+    border-radius: 25px;
+
+    position: relative;
+
+}
+
+
+/* =====================================================
+   NAMA HARI
+===================================================== */
+
+.calendar-week {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    text-align: center;
+
+    margin-bottom: 10px;
+
+}
+
+
+.calendar-week span {
+
+    color: #e90070;
+
+    font-family:
+        "Chewy",
+        cursive;
+
+    font-size: 15px;
+
+    opacity: .85;
+
+}
+
+
+/* =====================================================
+   GRID TANGGAL
+===================================================== */
+
+.calendar-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    grid-auto-rows: 47px;
+
+    align-items: center;
+
+    text-align: center;
+
+}
+
+
+.calendar-grid > span {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 36px;
+
+    height: 36px;
+
+    margin: auto;
+
+    color: #555;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+}
+
+
+.calendar-grid .empty {
+
+    visibility: hidden;
+
+}
+
+
+/* =====================================================
+   TANGGAL ACARA 8
+===================================================== */
+
+.event-date {
+
+    position: relative;
+
+    width: 42px !important;
+
+    height: 42px !important;
+
+    z-index: 5;
+
+}
+
+
+/* angka 8 */
+
+.event-date b {
+
+    position: relative;
+
+    z-index: 20;
+
+    color: #ffffff;
+
+    font-family:
+        "Chewy",
+        cursive;
+
+    font-size: 20px;
+
+    font-weight: normal;
+
+}
+
+
+/* =====================================================
+   BUNGA DI BELAKANG ANGKA 8
+===================================================== */
+
+.event-date::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 31px;
+
+    height: 31px;
+
+    left: 50%;
+
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    background: #e90070;
+
+    border-radius:
+        50%;
+
+    z-index: 1;
+
+    box-shadow:
+
+        0 -13px 0 -5px #f39a0a,
+
+        0 13px 0 -5px #f39a0a,
+
+        -13px 0 0 -5px #f39a0a,
+
+        13px 0 0 -5px #f39a0a;
+
+    animation:
+        flowerPulse 3s ease-in-out infinite;
+
+}
+
+
+/* =====================================================
+   PETAL TAMBAHAN
+===================================================== */
+
+.flower-petal {
+
+    position: absolute;
+
+    width: 13px;
+
+    height: 19px;
+
+    background: #f5a0c5;
+
+    border-radius:
+        50%;
+
+    z-index: 2;
+
+}
+
+
+.petal-1 {
+
+    top: -1px;
+    left: 14px;
+
+    transform:
+        rotate(0deg);
+
+}
+
+
+.petal-2 {
+
+    right: -1px;
+    top: 11px;
+
+    transform:
+        rotate(72deg);
+
+}
+
+
+.petal-3 {
+
+    right: 5px;
+    bottom: 0;
+
+    transform:
+        rotate(144deg);
+
+}
+
+
+.petal-4 {
+
+    left: 4px;
+    bottom: 0;
+
+    transform:
+        rotate(216deg);
+
+}
+
+
+.petal-5 {
+
+    left: -2px;
+    top: 11px;
+
+    transform:
+        rotate(288deg);
+
+}
+
+
+/* =====================================================
+   TANGGAL LAIN
+===================================================== */
+
+.calendar-grid > span:not(.event-date):not(.empty) {
+
+    transition:
+        transform .25s ease,
+        color .25s ease;
+
+}
+
+
+.calendar-grid > span:not(.event-date):not(.empty):hover {
+
+    color: #e90070;
+
+    transform:
+        scale(1.15);
+
+}
+
+
+/* =====================================================
+   ANIMASI BUNGA
+===================================================== */
+
+@keyframes flowerPulse {
+
+    0%,
+    100% {
+
+        transform:
+            translate(-50%, -50%)
+            scale(1)
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-50%, -50%)
+            scale(1.12)
+            rotate(5deg);
+
+    }
+
+}
+
+
+/* =====================================================
+   TANGGAL
+===================================================== */
+
+.acara-date {
+
+    margin:
+        20px
+        auto
+        0;
+
+    color: #777;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   EVENT
+===================================================== */
+
+.event-block {
+
+    margin-top: 26px;
+
+    text-align: center;
+}
+
+
+.event-title {
+
+    margin: 0;
+
+    font-family:
+        "Chewy",
+        cursive;
+
+    font-size: 19px;
+
+    letter-spacing: 2px;
+}
+
+
+.pink-event {
+    color: #e90070;
+}
+
+
+.orange-event {
+    color: #f39a0a;
+}
+
+
+.event-place {
+
+    margin:
+        10px
+        0
+        0;
+
+    color: #555;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 17px;
+}
+
+
+.event-address {
+
+    margin:
+        5px
+        0
+        0;
+
+    color: #555;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   TOMBOL MAP
+===================================================== */
+
+.event-map {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-width: 205px;
+
+    height: 52px;
+
+    margin-top: 18px;
+
+    padding:
+        0
+        24px;
+
+    box-sizing: border-box;
+
+    border-radius: 30px;
+
+    background: transparent;
+
+    text-decoration: none;
+
+    font-family:
+        "Chewy",
+        cursive;
+
+    font-size: 17px;
+
+    letter-spacing: 1px;
+
+    transition:
+        .3s ease;
+}
+
+
+.event-map span {
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 21px;
+
+}
+
+
+/* PINK */
+
+.pink-map {
+
+    color: #e90070;
+
+    border:
+        2px solid #e90070;
+}
+
+
+.pink-map:hover {
+
+    color: white;
+
+    background: #e90070;
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(233,0,112,.2);
+}
+
+
+/* ORANGE */
+
+.orange-map {
+
+    color: #f39a0a;
+
+    border:
+        2px solid #f39a0a;
+}
+
+
+.orange-map:hover {
+
+    color: white;
+
+    background: #f39a0a;
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(243,154,10,.2);
+}
+
+
+/* =====================================================
+   DEKORASI
+===================================================== */
+
+.acara-flower {
+
+    position: absolute;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    color: #ed91bd;
+
+    opacity: .65;
+
+    font-size: 130px;
+}
+
+
+.acara-flower-right {
+
+    right: -55px;
+
+    top: 310px;
+
+    animation:
+        acaraFlowerMove 6s
+        ease-in-out
+        infinite;
+}
+
+
+.acara-flower-bottom {
+
+    left: -45px;
+
+    bottom: 130px;
+
+    font-size: 110px;
+
+    opacity: .5;
+
+    animation:
+        acaraFlowerMove 7s
+        ease-in-out
+        infinite
+        reverse;
+}
+
+
+/* =====================================================
+   SPARKLE
+===================================================== */
+
+.acara-sparkle {
+
+    position: absolute;
+
+    z-index: 3;
+
+    color: #f7c313;
+
+    pointer-events: none;
+
+    font-size: 28px;
+
+    animation:
+        acaraSparkleMove 3s
+        ease-in-out
+        infinite;
+}
+
+
+.acara-sparkle-1 {
+
+    left: 35px;
+
+    top: 160px;
+}
+
+
+.acara-sparkle-2 {
+
+    right: 35px;
+
+    top: 430px;
+
+    font-size: 23px;
+
+    animation-delay: .8s;
+}
+
+
+.acara-sparkle-3 {
+
+    left: 45px;
+
+    bottom: 230px;
+
+    font-size: 18px;
+
+    animation-delay: 1.4s;
+}
+
+
+/* =====================================================
+   ANIMASI
+===================================================== */
+
+@keyframes calendarBounce {
+
+    0%,
+    100% {
+        transform:
+            scale(1);
+    }
+
+    50% {
+        transform:
+            scale(1.08);
+    }
+
+}
+
+
+@keyframes acaraFlowerMove {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(-5deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-12px)
+            rotate(6deg);
+
+    }
+
+}
+
+
+@keyframes acaraSparkleMove {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+        opacity: .5;
+    }
+
+    50% {
+
+        transform:
+            translateY(-9px)
+            rotate(18deg);
+
+        opacity: 1;
+    }
+
+}
+
+/* TURUNKAN NAMA PENGANTIN */
+.heart-photo-wrapper .circle-text {
+    position: absolute !important;
+
+    top: 285px !important;
+    left: 50% !important;
+
+    transform: translateX(-50%) !important;
+
+    z-index: 50 !important;
+
+    width: 100% !important;
+
+    text-align: center;
+
+    color: #f39a0a;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 20px;
+
+    letter-spacing: 2px;
+
+    white-space: nowrap;
+}
+
+/* =====================================================
+   AGENDA ACARA
+===================================================== */
+
+.agenda-section {
+    position: relative;
+
+    width: 100%;
+
+    padding: 55px 28px 100px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+}
+
+
+/* JUDUL */
+
+.agenda-title {
+    margin: 0 0 38px;
+
+    text-align: center;
+
+    color: #ec0870;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 30px;
+
+    letter-spacing: 1px;
+
+    animation: agendaTitleFloat 3s ease-in-out infinite;
+}
+
+
+/* ITEM AGENDA */
+
+.agenda-item {
+    display: grid;
+
+    grid-template-columns: 135px 1fr;
+
+    gap: 10px;
+
+    align-items: start;
+
+    margin-bottom: 28px;
+}
+
+
+/* JAM */
+
+.agenda-time {
+    color: #f39a0a;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 24px;
+
+    line-height: 1.1;
+
+    white-space: nowrap;
+}
+
+
+/* INFO */
+
+.agenda-info {
+    padding-top: 2px;
+}
+
+
+/* NAMA ACARA */
+
+.agenda-name {
+    color: #555;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    margin-bottom: 5px;
+}
+
+
+/* DESKRIPSI */
+
+.agenda-description {
+    color: #999;
+
+    font-size: 15px;
+
+    line-height: 1.55;
+}
+
+
+/* CATATAN */
+
+.agenda-note {
+    display: flex;
+
+    gap: 12px;
+
+    align-items: flex-start;
+
+    margin: 18px 0;
+
+    color: #999;
+
+    font-size: 15px;
+
+    line-height: 1.45;
+}
+
+
+/* BINTANG */
+
+.note-star {
+    color: #ffc313;
+
+    font-size: 20px;
+
+    flex-shrink: 0;
+
+    animation: starTwinkle 2s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   DEKORASI GARIS PINK
+===================================================== */
+
+.agenda-decoration {
+
+    position: relative;
+
+    width: 88%;
+
+    height: 55px;
+
+    margin: 75px auto 25px;
+
+}
+
+
+/* garis */
+
+.agenda-decoration::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 25px;
+
+    height: 4px;
+
+    background: #f5c4da;
+
+    border-radius: 50%;
+}
+
+
+/* lingkaran */
+
+.agenda-decoration span {
+
+    position: absolute;
+
+    top: 12px;
+
+    width: 22px;
+    height: 22px;
+
+    border: 5px solid #f5c4da;
+
+    border-radius: 50%;
+
+    background: #fff7f0;
+
+    animation: decorationBounce 2.8s ease-in-out infinite;
+}
+
+
+.agenda-decoration span:nth-child(1) {
+    left: 8%;
+}
+
+.agenda-decoration span:nth-child(2) {
+    left: 34%;
+    animation-delay: .3s;
+}
+
+.agenda-decoration span:nth-child(3) {
+    left: 60%;
+    animation-delay: .6s;
+}
+
+.agenda-decoration span:nth-child(4) {
+    left: 86%;
+    animation-delay: .9s;
+}
+
+
+/* =====================================================
+   QUOTE
+===================================================== */
+
+.agenda-quote {
+
+    text-align: center;
+
+    padding: 0 10px;
+
+    margin-top: 15px;
+}
+
+
+.agenda-quote p {
+
+    margin: 0;
+
+    color: #68605c;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 17px;
+
+    font-style: italic;
+
+    line-height: 2;
+
+}
+
+
+/* QS */
+
+.agenda-quran {
+
+    margin-top: 22px;
+
+    color: #f39a0a;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 17px;
+
+    letter-spacing: 2px;
+
+    animation: quranFloat 3s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   ANIMASI
+===================================================== */
+
+@keyframes agendaTitleFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+}
+
+
+@keyframes starTwinkle {
+
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+
+        opacity: .75;
+    }
+
+    50% {
+        transform: scale(1.3) rotate(12deg);
+
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes decorationBounce {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+
+}
+
+
+@keyframes quranFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+
+}
+
+
+/* =====================================================
+   HP
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .agenda-section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+    .agenda-title {
+        font-size: 29px;
+    }
+
+
+    .agenda-item {
+        grid-template-columns: 130px 1fr;
+
+        gap: 8px;
+    }
+
+
+    .agenda-time {
+        font-size: 22px;
+    }
+
+
+    .agenda-name {
+        font-size: 16px;
+    }
+
+
+    .agenda-description {
+        font-size: 14px;
+    }
+
+
+    .agenda-quote p {
+        font-size: 16px;
+
+        line-height: 1.95;
+    }
+
+}
+
+/* =====================================================
+   DUA MANUSIANYA
+===================================================== */
+
+.couple-section {
+
+    position: relative;
+
+    width: 100%;
+
+    padding: 70px 20px 120px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    text-align: center;
+
+}
+
+
+/* JUDUL */
+
+.couple-section-title {
+
+    margin: 0 0 28px;
+
+    color: #f39a0a;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 29px;
+
+    letter-spacing: 1px;
+
+    animation: coupleTitleFloat 3s ease-in-out infinite;
+
+}
+
+
+/* KARTU */
+
+.person-card {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 360px;
+
+    margin: 0 auto 75px;
+
+    text-align: center;
+
+}
+
+
+/* FOTO LOVE */
+
+.person-heart {
+
+    position: relative;
+
+    width: 285px;
+
+    height: 260px;
+
+    margin: 0 auto 25px;
+
+    filter:
+        drop-shadow(0 12px 18px rgba(236, 8, 112, .12));
+
+    animation: heartFloat 4s ease-in-out infinite;
+
+}
+
+
+.person-heart svg {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+
+/* NAMA */
+
+.person-name {
+
+    position: relative;
+
+    z-index: 5;
+
+    margin: 0 0 15px;
+
+    color: #f39a0a;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 27px;
+
+    line-height: 1.25;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* ORANG TUA */
+
+.person-parent {
+
+    margin: 0 auto 22px;
+
+    max-width: 330px;
+
+    color: #888;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+}
+
+
+/* INSTAGRAM */
+
+.instagram-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 245px;
+
+    height: 58px;
+
+    padding: 0 25px;
+
+    box-sizing: border-box;
+
+    border: 3px solid #ec0870;
+
+    border-radius: 40px;
+
+    color: #ec0870;
+
+    background: transparent;
+
+    text-decoration: none;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 19px;
+
+    letter-spacing: 1.5px;
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        color .3s ease;
+
+}
+
+
+.instagram-button:hover {
+
+    transform: translateY(-4px);
+
+    color: white;
+
+    background: #ec0870;
+
+}
+
+
+.instagram-button:active {
+
+    transform: scale(.96);
+
+}
+
+
+/* PENGANTIN PRIA */
+
+.groom-card {
+
+    margin-top: 45px;
+
+}
+
+
+.groom-heart {
+
+    animation-delay: .8s;
+
+}
+
+
+/* INSTAGRAM PRIA */
+
+.orange-instagram {
+
+    color: #f39a0a;
+
+    border-color: #f39a0a;
+
+}
+
+
+.orange-instagram:hover {
+
+    color: white;
+
+    background: #f39a0a;
+
+}
+
+
+/* =====================================================
+   ANIMASI
+===================================================== */
+
+@keyframes heartFloat {
+
+    0%, 100% {
+
+        transform: translateY(0);
+
+    }
+
+    50% {
+
+        transform: translateY(-8px);
+
+    }
+
+}
+
+
+@keyframes coupleTitleFloat {
+
+    0%, 100% {
+
+        transform: translateY(0);
+
+    }
+
+    50% {
+
+        transform: translateY(-5px);
+
+    }
+
+}
+
+
+/* HP */
+
+@media (max-width: 480px) {
+
+    .couple-section {
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+
+    }
+
+
+    .couple-section-title {
+
+        font-size: 28px;
+
+    }
+
+
+    .person-heart {
+
+        width: 280px;
+
+        height: 255px;
+
+    }
+
+
+    .person-name {
+
+        font-size: 26px;
+
+    }
+
+
+    .person-parent {
+
+        font-size: 15px;
+
+    }
+
+}
+
+/* =====================================================
+   EXTRA DECORATION - DUA MANUSIANYA
+===================================================== */
+
+.couple-section {
+    isolation: isolate;
+}
+
+
+/* LINGKARAN PASTEL BESAR */
+
+.couple-section::before,
+.couple-section::after {
+    content: "";
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: -2;
+
+    animation: pastelFloat 7s ease-in-out infinite;
+}
+
+
+/* pink */
+
+.couple-section::before {
+    width: 180px;
+    height: 180px;
+
+    background: rgba(244, 158, 195, .20);
+
+    left: -75px;
+    top: 130px;
+}
+
+
+/* orange */
+
+.couple-section::after {
+    width: 140px;
+    height: 140px;
+
+    background: rgba(255, 193, 40, .16);
+
+    right: -55px;
+    top: 420px;
+
+    animation-delay: 1.5s;
+}
+
+
+/* =====================================================
+   HIASAN BACKGROUND MENGGUNAKAN EXTRA ELEMENT
+===================================================== */
+
+.couple-section {
+    background-image:
+        radial-gradient(
+            circle at 10% 18%,
+            rgba(236, 8, 112, .14) 0 5px,
+            transparent 6px
+        ),
+        radial-gradient(
+            circle at 88% 27%,
+            rgba(255, 193, 40, .18) 0 7px,
+            transparent 8px
+        ),
+        radial-gradient(
+            circle at 15% 58%,
+            rgba(236, 8, 112, .12) 0 4px,
+            transparent 5px
+        ),
+        radial-gradient(
+            circle at 90% 70%,
+            rgba(255, 167, 0, .16) 0 5px,
+            transparent 6px
+        );
+
+    background-size: 100% 100%;
+}
+
+
+/* =====================================================
+   TAMBAHKAN HIASAN MELALUI PERSON CARD
+===================================================== */
+
+.person-card::before,
+.person-card::after {
+
+    position: absolute;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* bunga kiri */
+
+.person-card::before {
+
+    content: "✿";
+
+    left: -18px;
+    top: 40px;
+
+    color: #f18fbc;
+
+    font-size: 45px;
+
+    animation:
+        flowerDrift 5s ease-in-out infinite,
+        flowerRotate 8s linear infinite;
+}
+
+
+/* sparkle kanan */
+
+.person-card::after {
+
+    content: "✦";
+
+    right: -10px;
+    top: 150px;
+
+    color: #ffc21a;
+
+    font-size: 30px;
+
+    animation: sparkleFloat 2.5s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   HIASAN TAMBAHAN PADA FOTO
+===================================================== */
+
+.person-heart::before {
+
+    content: "✦";
+
+    position: absolute;
+
+    left: -28px;
+    top: 70px;
+
+    color: #ffc21a;
+
+    font-size: 23px;
+
+    z-index: 10;
+
+    animation: sparklePulse 2s ease-in-out infinite;
+}
+
+
+.person-heart::after {
+
+    content: "♥";
+
+    position: absolute;
+
+    right: -28px;
+    bottom: 45px;
+
+    color: rgba(236, 8, 112, .22);
+
+    font-size: 35px;
+
+    z-index: 10;
+
+    animation: heartDrift 4s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   HIASAN BERBEDA UNTUK PENGANTIN PRIA
+===================================================== */
+
+.groom-card::before {
+
+    content: "✿";
+
+    left: auto;
+
+    right: -15px;
+
+    top: 55px;
+
+    color: #f3a5c6;
+
+    font-size: 42px;
+
+    animation:
+        flowerDrift 5.5s ease-in-out infinite reverse,
+        flowerRotate 9s linear infinite reverse;
+}
+
+
+.groom-card::after {
+
+    content: "✦";
+
+    left: -10px;
+
+    right: auto;
+
+    top: 170px;
+
+    color: #ffc21a;
+
+    font-size: 28px;
+
+    animation: sparkleFloat 3s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   FLOATING BUBBLES
+===================================================== */
+
+.groom-card .person-heart::before {
+
+    color: #ec0870;
+
+    opacity: .75;
+}
+
+
+.groom-card .person-heart::after {
+
+    color: rgba(243, 154, 10, .25);
+
+    animation-delay: 1s;
+}
+
+
+/* =====================================================
+   ANIMASI
+===================================================== */
+
+@keyframes pastelFloat {
+
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(18px, -18px) scale(1.06);
+    }
+
+}
+
+
+@keyframes flowerDrift {
+
+    0%, 100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-14px) rotate(8deg);
+    }
+
+}
+
+
+@keyframes flowerRotate {
+
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+
+}
+
+
+@keyframes sparkleFloat {
+
+    0%, 100% {
+        transform:
+            translateY(0)
+            scale(1)
+            rotate(0deg);
+
+        opacity: .65;
+    }
+
+    50% {
+        transform:
+            translateY(-13px)
+            scale(1.35)
+            rotate(20deg);
+
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes sparklePulse {
+
+    0%, 100% {
+        transform: scale(.8) rotate(0deg);
+
+        opacity: .5;
+    }
+
+    50% {
+        transform: scale(1.4) rotate(25deg);
+
+        opacity: 1;
+    }
+
+}
+
+
+@keyframes heartDrift {
+
+    0%, 100% {
+        transform:
+            translate(0, 0)
+            rotate(-10deg);
+
+        opacity: .35;
+    }
+
+    50% {
+        transform:
+            translate(8px, -15px)
+            rotate(10deg);
+
+        opacity: .75;
+    }
+
+}
+
+/* =====================================================
+   DEKORASI CERIA - HALAMAN ACARA / AGENDA
+===================================================== */
+
+.agenda-section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 8% 12%,
+            rgba(246, 153, 193, .22) 0 55px,
+            transparent 56px),
+
+        radial-gradient(circle at 92% 20%,
+            rgba(255, 193, 30, .18) 0 42px,
+            transparent 43px),
+
+        radial-gradient(circle at 7% 68%,
+            rgba(236, 8, 112, .12) 0 25px,
+            transparent 26px),
+
+        radial-gradient(circle at 94% 78%,
+            rgba(243, 154, 10, .14) 0 65px,
+            transparent 66px);
+}
+
+
+/* =====================================================
+   BUNGA BESAR KIRI
+===================================================== */
+
+.agenda-section::before {
+
+    content: "✿";
+
+    position: absolute;
+
+    left: -22px;
+    top: 90px;
+
+    color: #ef91bc;
+
+    font-size: 90px;
+
+    opacity: .75;
+
+    z-index: -1;
+
+    animation:
+        agendaFlowerFloat 5s ease-in-out infinite,
+        agendaFlowerRotate 12s linear infinite;
+}
+
+
+/* =====================================================
+   SPARKLE KANAN
+===================================================== */
+
+.agenda-section::after {
+
+    content: "✦";
+
+    position: absolute;
+
+    right: 25px;
+    top: 180px;
+
+    color: #ffc21a;
+
+    font-size: 38px;
+
+    z-index: -1;
+
+    animation: agendaSparkle 2.5s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   TAMBAHAN DEKORASI PADA ITEM AGENDA
+===================================================== */
+
+.agenda-item {
+    position: relative;
+}
+
+
+/* lingkaran pastel bergerak */
+
+.agenda-item::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    background: rgba(244, 158, 195, .15);
+
+    left: -35px;
+    top: -18px;
+
+    z-index: -1;
+
+    animation: agendaBubble 5s ease-in-out infinite;
+}
+
+
+.agenda-item:nth-of-type(2)::before {
+
+    background: rgba(255, 193, 30, .14);
+
+    left: auto;
+    right: -20px;
+
+    animation-delay: 1s;
+}
+
+
+/* =====================================================
+   BINTANG-BINTANG KECIL
+===================================================== */
+
+.agenda-note {
+    position: relative;
+}
+
+
+.agenda-note::after {
+
+    content: "✦";
+
+    position: absolute;
+
+    right: 8px;
+    top: -8px;
+
+    color: #f6b900;
+
+    font-size: 14px;
+
+    animation: tinyStar 2s ease-in-out infinite;
+}
+
+
+.agenda-note:nth-of-type(2)::after {
+    animation-delay: .8s;
+}
+
+
+/* =====================================================
+   DEKORASI DI SEKITAR QUOTE
+===================================================== */
+
+.agenda-quote {
+    position: relative;
+}
+
+
+.agenda-quote::before {
+
+    content: "♥";
+
+    position: absolute;
+
+    left: -8px;
+    top: 5px;
+
+    color: rgba(236, 8, 112, .18);
+
+    font-size: 28px;
+
+    animation: littleHeart 4s ease-in-out infinite;
+}
+
+
+.agenda-quote::after {
+
+    content: "✦";
+
+    position: absolute;
+
+    right: 5px;
+    bottom: 15px;
+
+    color: rgba(255, 193, 30, .75);
+
+    font-size: 23px;
+
+    animation: agendaSparkle 2.8s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   TITIK-TITIK CERIA
+===================================================== */
+
+.agenda-decoration::before {
+
+    animation:
+        agendaLineMove 4s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   ANIMASI
+===================================================== */
+
+@keyframes agendaFlowerFloat {
+
+    0%, 100% {
+        transform:
+            translate(0, 0)
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            translate(12px, -15px)
+            rotate(12deg);
+    }
+}
+
+
+@keyframes agendaFlowerRotate {
+
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+}
+
+
+@keyframes agendaSparkle {
+
+    0%, 100% {
+        transform:
+            scale(.8)
+            rotate(0deg);
+
+        opacity: .45;
+    }
+
+    50% {
+        transform:
+            scale(1.35)
+            rotate(20deg);
+
+        opacity: 1;
+    }
+}
+
+
+@keyframes agendaBubble {
+
+    0%, 100% {
+        transform:
+            translate(0, 0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate(12px, -10px)
+            scale(1.12);
+    }
+}
+
+
+@keyframes tinyStar {
+
+    0%, 100% {
+        transform: scale(.7);
+        opacity: .35;
+    }
+
+    50% {
+        transform: scale(1.4);
+        opacity: 1;
+    }
+}
+
+
+@keyframes littleHeart {
+
+    0%, 100% {
+        transform:
+            translateY(0)
+            rotate(-8deg);
+
+        opacity: .3;
+    }
+
+    50% {
+        transform:
+            translateY(-12px)
+            rotate(8deg);
+
+        opacity: .8;
+    }
+}
+
+
+@keyframes agendaLineMove {
+
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(8px);
+    }
+}
+
+/* =====================================================
+   GALERI
+===================================================== */
+
+.gallery-section {
+
+    position: relative;
+
+    width: 100%;
+
+    padding: 70px 18px 130px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    overflow: hidden;
+
+    isolation: isolate;
+}
+
+
+/* BACKGROUND BULAT */
+
+.gallery-section::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    border-radius: 50%;
+
+    background: rgba(246, 154, 194, .18);
+
+    left: -90px;
+    top: 150px;
+
+    z-index: -2;
+
+    animation: galleryBubble 7s ease-in-out infinite;
+}
+
+
+.gallery-section::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 193, 30, .14);
+
+    right: -70px;
+    bottom: 170px;
+
+    z-index: -2;
+
+    animation:
+        galleryBubble 6s ease-in-out infinite reverse;
+}
+
+
+/* =====================================================
+   JUDUL
+===================================================== */
+
+.gallery-title {
+
+    margin: 0;
+
+    color: #ec0870;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 32px;
+
+    letter-spacing: 1px;
+
+    animation: galleryTitleFloat 3s ease-in-out infinite;
+}
+
+
+.gallery-subtitle {
+
+    margin: 7px 0 30px;
+
+    color: #999;
+
+    font-size: 15px;
+
+    font-style: italic;
+}
+
+
+/* =====================================================
+   SLIDER
+===================================================== */
+
+.gallery-slider {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 350px;
+
+    height: 390px;
+
+    margin: auto;
+
+}
+
+
+/* TRACK */
+
+.gallery-track {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+/* SLIDE */
+
+.gallery-slide {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 10px;
+
+    box-sizing: border-box;
+
+    opacity: 0;
+
+    transform:
+        scale(.86)
+        rotate(-3deg);
+
+    transition:
+        opacity .7s ease,
+        transform .8s cubic-bezier(.22, .61, .36, 1);
+
+    pointer-events: none;
+}
+
+
+/* FOTO AKTIF */
+
+.gallery-slide.active {
+
+    opacity: 1;
+
+    transform:
+        scale(1)
+        rotate(0deg);
+
+    z-index: 5;
+
+    pointer-events: auto;
+}
+
+
+/* FRAME */
+
+.gallery-slide::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 3px;
+
+    border: 3px solid #ec0870;
+
+    border-radius: 28px;
+
+    transform: rotate(-2deg);
+
+    z-index: -1;
+}
+
+
+.gallery-slide::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border: 3px solid #f39a0a;
+
+    border-radius: 30px;
+
+    transform: rotate(2deg);
+
+    z-index: -2;
+}
+
+
+/* FOTO */
+
+.gallery-slide img {
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 25px;
+
+    border: 7px solid #fff8f2;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 15px 35px rgba(236, 8, 112, .16);
+
+}
+
+
+/* =====================================================
+   TOMBOL SLIDER
+===================================================== */
+
+.gallery-arrow {
+
+    position: absolute;
+
+    top: 50%;
+
+    width: 43px;
+    height: 43px;
+
+    transform: translateY(-50%);
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #ec0870;
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 32px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    z-index: 20;
+
+    box-shadow:
+        0 7px 18px rgba(236, 8, 112, .28);
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
+}
+
+
+.gallery-arrow:hover {
+
+    background: #f39a0a;
+
+    transform:
+        translateY(-50%)
+        scale(1.1);
+}
+
+
+.gallery-prev {
+    left: -5px;
+}
+
+
+.gallery-next {
+    right: -5px;
+}
+
+
+/* =====================================================
+   DOTS
+===================================================== */
+
+.gallery-dots {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 22px;
+}
+
+
+.gallery-dot {
+
+    width: 9px;
+    height: 9px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #e8b5ca;
+
+    cursor: pointer;
+
+    transition:
+        width .3s ease,
+        background .3s ease;
+}
+
+
+.gallery-dot.active {
+
+    width: 25px;
+
+    border-radius: 20px;
+
+    background: #ec0870;
+}
+
+
+/* =====================================================
+   CAPTION
+===================================================== */
+
+.gallery-caption {
+
+    margin-top: 20px;
+
+    color: #f39a0a;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 19px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   DEKORASI
+===================================================== */
+
+.gallery-deco {
+
+    position: absolute;
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+
+.gallery-flower-left {
+
+    left: -15px;
+
+    top: 40px;
+
+    color: #ef91bc;
+
+    font-size: 65px;
+
+    animation:
+        galleryFlower 5s ease-in-out infinite,
+        galleryRotate 12s linear infinite;
+}
+
+
+.gallery-flower-right {
+
+    right: -15px;
+
+    bottom: 80px;
+
+    color: #ef91bc;
+
+    font-size: 70px;
+
+    animation:
+        galleryFlower 5.5s ease-in-out infinite reverse,
+        galleryRotate 14s linear infinite reverse;
+}
+
+
+.gallery-sparkle {
+
+    position: absolute;
+
+    color: #ffc21a;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    animation: gallerySparkle 2.5s ease-in-out infinite;
+}
+
+
+.gs1 {
+
+    left: 35px;
+    top: 210px;
+
+    font-size: 25px;
+}
+
+
+.gs2 {
+
+    right: 38px;
+    top: 330px;
+
+    font-size: 31px;
+
+    animation-delay: .8s;
+}
+
+
+.gs3 {
+
+    left: 45px;
+    bottom: 240px;
+
+    font-size: 19px;
+
+    animation-delay: 1.4s;
+}
+
+
+/* =====================================================
+   ANIMASI
+===================================================== */
+
+@keyframes galleryTitleFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+
+@keyframes galleryBubble {
+
+    0%, 100% {
+        transform:
+            translate(0, 0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate(18px, -20px)
+            scale(1.08);
+    }
+}
+
+
+@keyframes galleryFlower {
+
+    0%, 100% {
+        transform:
+            translateY(0)
+            rotate(-5deg);
+    }
+
+    50% {
+        transform:
+            translateY(-14px)
+            rotate(10deg);
+    }
+}
+
+
+@keyframes galleryRotate {
+
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+}
+
+
+@keyframes gallerySparkle {
+
+    0%, 100% {
+        transform:
+            scale(.7)
+            rotate(0deg);
+
+        opacity: .4;
+    }
+
+    50% {
+        transform:
+            scale(1.35)
+            rotate(20deg);
+
+        opacity: 1;
+    }
+}
+
+/* =====================================================
+   DRESS CODE
+===================================================== */
+
+.dresscode-section {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 560px;
+
+    padding: 75px 25px 110px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 8% 20%,
+            rgba(245, 166, 199, .20) 0 70px,
+            transparent 71px
+        ),
+        radial-gradient(
+            circle at 92% 75%,
+            rgba(255, 194, 55, .16) 0 80px,
+            transparent 81px
+        );
+}
+
+
+/* =====================================================
+   KONTEN
+===================================================== */
+
+.dresscode-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 360px;
+
+    margin: auto;
+}
+
+
+/* =====================================================
+   JUDUL KECIL
+===================================================== */
+
+.dress-small-title {
+
+    color: #999;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 15px;
+
+    font-style: italic;
+
+    margin-bottom: 4px;
+}
+
+
+/* =====================================================
+   JUDUL
+===================================================== */
+
+.dresscode-title {
+
+    margin: 0 0 32px;
+
+    color: #ec0870;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 38px;
+
+    letter-spacing: 1px;
+
+    animation:
+        dressTitleFloat 3s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   PAKAI YANG
+===================================================== */
+
+.dress-subtitle {
+
+    color: #777;
+
+    font-size: 16px;
+
+    margin-bottom: 4px;
+}
+
+
+/* =====================================================
+   SMART CASUAL
+===================================================== */
+
+.dress-main {
+
+    display: inline-block;
+
+    padding: 10px 28px;
+
+    color: #f39a0a;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 31px;
+
+    letter-spacing: 1px;
+
+    border-bottom: 3px solid #f39a0a;
+
+    transform: rotate(-2deg);
+
+    animation:
+        dressMainFloat 4s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   WARNA
+===================================================== */
+
+.dress-color-title {
+
+    margin-top: 35px;
+
+    margin-bottom: 18px;
+
+    color: #888;
+
+    font-size: 14px;
+
+    font-style: italic;
+}
+
+
+.dress-colors {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    margin-bottom: 30px;
+}
+
+
+.dress-color {
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    border: 4px solid white;
+
+    box-shadow:
+        0 5px 14px rgba(0,0,0,.10);
+
+    animation:
+        colorFloat 3s ease-in-out infinite;
+}
+
+
+.dress-color:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.dress-color:nth-child(3) {
+    animation-delay: .4s;
+}
+
+.dress-color:nth-child(4) {
+    animation-delay: .6s;
+}
+
+.dress-color:nth-child(5) {
+    animation-delay: .8s;
+}
+
+
+/* WARNA */
+
+.color-cream {
+    background: #f5dfc5;
+}
+
+.color-pink {
+    background: #efb4c8;
+}
+
+.color-peach {
+    background: #f5b18d;
+}
+
+.color-yellow {
+    background: #f5d77a;
+}
+
+.color-sage {
+    background: #b9c9ad;
+}
+
+
+/* =====================================================
+   DESKRIPSI
+===================================================== */
+
+.dress-description {
+
+    max-width: 315px;
+
+    margin: 0 auto;
+
+    color: #777;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   HATI
+===================================================== */
+
+.dress-heart {
+
+    margin-top: 28px;
+
+    color: rgba(236, 8, 112, .28);
+
+    font-size: 28px;
+
+    animation:
+        dressHeart 3s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   DEKORASI BUNGA
+===================================================== */
+
+.dress-deco {
+
+    position: absolute;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+
+.dress-flower-1 {
+
+    left: -25px;
+
+    top: 80px;
+
+    color: #ef91bc;
+
+    font-size: 85px;
+
+    animation:
+        dressFlowerFloat 5s ease-in-out infinite,
+        dressRotate 13s linear infinite;
+}
+
+
+.dress-flower-2 {
+
+    right: -25px;
+
+    bottom: 100px;
+
+    color: #f5b45c;
+
+    font-size: 75px;
+
+    animation:
+        dressFlowerFloat 6s ease-in-out infinite reverse,
+        dressRotate 15s linear infinite reverse;
+}
+
+
+/* =====================================================
+   SPARKLE
+===================================================== */
+
+.dress-sparkle {
+
+    position: absolute;
+
+    color: #ffc21a;
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    animation:
+        dressSparkle 2.5s ease-in-out infinite;
+}
+
+
+.dress-sparkle-1 {
+
+    left: 45px;
+
+    top: 230px;
+
+    font-size: 22px;
+}
+
+
+.dress-sparkle-2 {
+
+    right: 40px;
+
+    top: 180px;
+
+    font-size: 31px;
+
+    animation-delay: .7s;
+}
+
+
+.dress-sparkle-3 {
+
+    left: 65px;
+
+    bottom: 120px;
+
+    font-size: 17px;
+
+    animation-delay: 1.2s;
+}
+
+
+/* =====================================================
+   LINGKARAN
+===================================================== */
+
+.dress-circle {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    border: 3px solid rgba(236, 8, 112, .13);
+
+    animation:
+        dressCircleFloat 6s ease-in-out infinite;
+}
+
+
+.circle-1 {
+
+    width: 100px;
+    height: 100px;
+
+    left: -40px;
+
+    top: 330px;
+}
+
+
+.circle-2 {
+
+    width: 65px;
+    height: 65px;
+
+    right: -20px;
+
+    top: 390px;
+
+    border-color: rgba(243,154,10,.18);
+
+    animation-delay: 1s;
+}
+
+
+/* =====================================================
+   ANIMASI
+===================================================== */
+
+@keyframes dressTitleFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+
+@keyframes dressMainFloat {
+
+    0%, 100% {
+        transform:
+            rotate(-2deg)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            rotate(-2deg)
+            translateY(-5px);
+    }
+}
+
+
+@keyframes colorFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+
+@keyframes dressFlowerFloat {
+
+    0%, 100% {
+        transform: translate(0,0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translate(12px,-15px) rotate(10deg);
+    }
+}
+
+
+@keyframes dressRotate {
+
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+}
+
+
+@keyframes dressSparkle {
+
+    0%, 100% {
+        transform:
+            scale(.7)
+            rotate(0deg);
+
+        opacity: .4;
+    }
+
+    50% {
+        transform:
+            scale(1.35)
+            rotate(20deg);
+
+        opacity: 1;
+    }
+}
+
+
+@keyframes dressCircleFloat {
+
+    0%, 100% {
+        transform:
+            translate(0,0)
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            translate(15px,-12px)
+            rotate(20deg);
+    }
+}
+
+
+@keyframes dressHeart {
+
+    0%, 100% {
+        transform: scale(1);
+
+        opacity: .4;
+    }
+
+    50% {
+        transform: scale(1.3);
+
+        opacity: .8;
+    }
+}
+
+/* =====================================================
+   KADO
+===================================================== */
+
+.gift-section {
+
+    position: relative;
+
+    min-height: 650px;
+
+    padding: 90px 25px 120px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 8% 20%,
+            rgba(246, 154, 194, .20) 0 80px,
+            transparent 81px
+        ),
+
+        radial-gradient(
+            circle at 92% 75%,
+            rgba(255, 193, 30, .17) 0 90px,
+            transparent 91px
+        );
+}
+
+
+/* =====================================================
+   KONTEN
+===================================================== */
+
+.gift-content {
+
+    position: relative;
+
+    z-index: 10;
+
+    max-width: 390px;
+
+    margin: auto;
+}
+
+
+/* =====================================================
+   JUDUL
+===================================================== */
+
+.gift-small-title {
+
+    color: #999;
+
+    font-size: 15px;
+
+    font-style: italic;
+
+    margin-bottom: 4px;
+}
+
+
+.gift-title {
+
+    margin: 0;
+
+    color: #ec0870;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 38px;
+
+    letter-spacing: 1px;
+
+    animation:
+        giftTitleFloat 3s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.gift-icon {
+
+    margin: 28px auto 20px;
+
+    width: 75px;
+    height: 75px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    box-shadow:
+        0 10px 25px rgba(236, 8, 112, .12);
+
+    font-size: 38px;
+
+    animation:
+        giftIconFloat 3s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   DESKRIPSI
+===================================================== */
+
+.gift-description {
+
+    max-width: 350px;
+
+    margin: 0 auto 32px;
+
+    color: #777;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.85;
+}
+
+
+/* =====================================================
+   TOMBOL
+===================================================== */
+
+.gift-button {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    min-width: 220px;
+
+    height: 58px;
+
+    padding: 0 28px;
+
+    border: 0;
+
+    border-radius: 40px;
+
+    background: #ec0870;
+
+    color: white;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 21px;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(236, 8, 112, .25);
+
+    transition:
+        transform .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+
+.gift-button:hover {
+
+    background: #f39a0a;
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 14px 30px rgba(243, 154, 10, .28);
+}
+
+
+.gift-button:active {
+
+    transform: scale(.95);
+}
+
+
+.gift-button-icon {
+
+    font-size: 25px;
+
+    animation:
+        buttonHeart 2s ease-in-out infinite;
+}
+
+
+/* =====================================================
+   CATATAN
+===================================================== */
+
+.gift-note {
+
+    margin-top: 22px;
+
+    color: #aaa;
+
+    font-size: 13px;
+
+    font-style: italic;
+}
+
+
+/* =====================================================
+   DEKORASI BUNGA
+===================================================== */
+
+.gift-flower {
+
+    position: absolute;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    color: #ef91bc;
+
+    font-size: 80px;
+
+    opacity: .75;
+}
+
+
+.gift-flower-1 {
+
+    left: -25px;
+
+    top: 80px;
+
+    animation:
+        giftFlowerFloat 5s ease-in-out infinite,
+        giftRotate 13s linear infinite;
+}
+
+
+.gift-flower-2 {
+
+    right: -25px;
+
+    bottom: 80px;
+
+    color: #f3aa5c;
+
+    animation:
+        giftFlowerFloat 6s ease-in-out infinite reverse,
+        giftRotate 15s linear infinite reverse;
+}
+
+
+/* =====================================================
+   SPARKLE
+===================================================== */
+
+.gift-sparkle {
+
+    position: absolute;
+
+    z-index: 2;
+
+    color: #ffc21a;
+
+    pointer-events: none;
+
+    animation:
+        giftSparkle 2.5s ease-in-out infinite;
+}
+
+
+.gift-sparkle-1 {
+
+    left: 35px;
+
+    top: 230px;
+
+    font-size: 23px;
+}
+
+
+.gift-sparkle-2 {
+
+    right: 35px;
+
+    top: 170px;
+
+    font-size: 32px;
+
+    animation-delay: .7s;
+}
+
+
+.gift-sparkle-3 {
+
+    left: 65px;
+
+    bottom: 150px;
+
+    font-size: 18px;
+
+    animation-delay: 1.3s;
+}
+
+
+/* =====================================================
+   HATI
+===================================================== */
+
+.gift-heart {
+
+    position: absolute;
+
+    color: rgba(236, 8, 112, .18);
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    animation:
+        giftHeartFloat 4s ease-in-out infinite;
+}
+
+
+.gift-heart-1 {
+
+    left: 25px;
+
+    bottom: 250px;
+
+    font-size: 35px;
+}
+
+
+.gift-heart-2 {
+
+    right: 20px;
+
+    top: 350px;
+
+    font-size: 27px;
+
+    animation-delay: 1s;
+}
+
+
+/* =====================================================
+   CIRCLE
+===================================================== */
+
+.gift-circle {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    border: 3px solid rgba(236, 8, 112, .13);
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    animation:
+        giftCircleFloat 6s ease-in-out infinite;
+}
+
+
+.gift-circle-1 {
+
+    width: 110px;
+    height: 110px;
+
+    left: -45px;
+
+    top: 390px;
+}
+
+
+.gift-circle-2 {
+
+    width: 70px;
+    height: 70px;
+
+    right: -25px;
+
+    top: 270px;
+
+    border-color:
+        rgba(243, 154, 10, .20);
+
+    animation-delay: 1s;
+}
+
+
+/* =====================================================
+   FIX POSISI POPUP KADO
+===================================================== */
+
+.gift-modal {
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 20px !important;
+
+    box-sizing: border-box;
+
+    z-index: 999999 !important;
+
+    visibility: hidden;
+
+    opacity: 0;
+
+    transition:
+        opacity .3s ease,
+        visibility .3s ease;
+}
+
+
+.gift-modal.show {
+
+    visibility: visible !important;
+
+    opacity: 1 !important;
+}
+
+
+/* BACKGROUND BLUR */
+
+.gift-modal-overlay {
+
+    position: fixed !important;
+
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100vh !important;
+
+    background:
+        rgba(40, 20, 30, .55);
+
+    backdrop-filter:
+        blur(8px);
+
+    -webkit-backdrop-filter:
+        blur(8px);
+
+    z-index: 1;
+}
+
+
+/* KOTAK POPUP */
+
+.gift-modal-box {
+
+    position: relative !important;
+
+    z-index: 2 !important;
+
+    width: min(390px, calc(100vw - 40px)) !important;
+
+    max-height: calc(100vh - 40px) !important;
+
+    overflow-y: auto;
+
+    margin: 0 !important;
+
+    padding: 35px 25px 30px;
+
+    box-sizing: border-box;
+
+    border-radius: 30px;
+
+    background: #fffaf6;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.30);
+
+    text-align: center;
+
+    transform:
+        translateY(20px)
+        scale(.94);
+
+    transition:
+        transform .4s cubic-bezier(.22,.61,.36,1);
+}
+
+
+.gift-modal.show .gift-modal-box {
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =====================================================
+   KARTU ATM
+===================================================== */
+
+.atm-card {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 1.62;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    text-align: left;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ec0870,
+            #f36a9e 55%,
+            #f39a0a
+        );
+
+    box-shadow:
+        0 15px 30px rgba(236, 8, 112, .25);
+
+    transform: rotate(-2deg);
+
+    margin-bottom: 28px;
+}
+
+
+.atm-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    border-radius: 50%;
+
+    right: -45px;
+    bottom: -55px;
+
+    background:
+        rgba(255,255,255,.16);
+}
+
+
+.atm-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+.atm-chip {
+
+    font-size: 25px;
+
+    opacity: .8;
+}
+
+
+.atm-number {
+
+    margin-top: 35px;
+
+    font-family: monospace;
+
+    font-size: 20px;
+
+    letter-spacing: 2px;
+
+    white-space: nowrap;
+}
+
+
+.atm-bottom {
+
+    position: absolute;
+
+    left: 20px;
+    right: 20px;
+    bottom: 18px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: end;
+}
+
+
+.atm-bottom small {
+
+    display: block;
+
+    font-size: 8px;
+
+    opacity: .75;
+}
+
+
+.atm-bottom strong {
+
+    font-size: 12px;
+}
+
+
+.atm-logo {
+
+    font-weight: bold;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   REKENING
+===================================================== */
+
+.rekening-info {
+
+    padding: 15px;
+
+    border-radius: 18px;
+
+    background: #fff;
+
+    border: 2px dashed #f2b3ca;
+
+    margin-bottom: 18px;
+}
+
+
+.rekening-bank {
+
+    color: #f39a0a;
+
+    font-family: "Chewy", cursive;
+
+    font-size: 17px;
+}
+
+
+.rekening-number {
+
+    margin: 7px 0;
+
+    color: #444;
+
+    font-family: monospace;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+
+.rekening-owner {
+
+    color: #999;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   COPY BUTTON
+===================================================== */
+
+.copy-rekening-button {
+
+    width: 100%;
+
+    height: 53px;
+
+    border: 0;
+
+    border-radius: 30px;
+
+    background: #f39a0a;
+
+    color: white;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
+}
+
+
+.copy-rekening-button:hover {
+
+    background: #ec0870;
+
+    transform: translateY(-2px);
+}
+
+
+.copy-rekening-button:active {
+
+    transform: scale(.97);
+}
+
+
+/* SUCCESS */
+
+.copy-success {
+
+    margin-top: 12px;
+
+    color: #24a56a;
+
+    font-size: 13px;
+
+    opacity: 0;
+
+    transform: translateY(-5px);
+
+    transition: .3s ease;
+}
+
+
+.copy-success.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+.gift-modal-thanks {
+
+    margin: 20px 5px 0;
+
+    color: #999;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   ANIMASI
+===================================================== */
+
+@keyframes giftTitleFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+
+@keyframes giftIconFloat {
+
+    0%,100% {
+        transform: translateY(0) rotate(0);
+    }
+
+    50% {
+        transform: translateY(-8px) rotate(4deg);
+    }
+}
+
+
+@keyframes buttonHeart {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.25);
+    }
+}
+
+
+@keyframes giftFlowerFloat {
+
+    0%,100% {
+        transform: translate(0,0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translate(12px,-15px) rotate(10deg);
+    }
+}
+
+
+@keyframes giftRotate {
+
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+}
+
+
+@keyframes giftSparkle {
+
+    0%,100% {
+        transform: scale(.7) rotate(0);
+        opacity: .4;
+    }
+
+    50% {
+        transform: scale(1.35) rotate(20deg);
+        opacity: 1;
+    }
+}
+
+
+@keyframes giftHeartFloat {
+
+    0%,100% {
+        transform: translateY(0) rotate(-8deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(8deg);
+    }
+}
+
+
+@keyframes giftCircleFloat {
+
+    0%,100% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform: translate(15px,-12px);
+    }
+}
+
+body.gift-modal-open {
+    overflow: hidden !important;
+}
