@@ -1,1249 +1,547 @@
 /* =====================================================
-   DATA UNDANGAN
+   WULAN & PAKSEH — MAIN CONTROLLER
 ===================================================== */
-
-/*
-    CUKUP UBAH BARIS INI.
-
-    Format:
-    TAHUN-BULAN-TANGGAL
-
-    Contoh:
-
-    8 November 2026
-    "2026-11-08"
-
-    21 Juli 2030
-    "2030-07-21"
-
-    14 Februari 2031
-    "2031-02-14"
-*/
-
-const weddingDate = "2026-11-08";
-
-
-
-/* =====================================================
-   DATA ACARA
-===================================================== */
-
-const weddingData = {
-
-    akad: {
-        time: "08.00 WIB",
-        place: "Ballroom Melati",
-        address: "Hotel Ambhara, Jakarta Selatan"
-    },
-
-    reception: {
-        time: "11.00 WIB",
-        place: "Ballroom Melati",
-        address: "Hotel Ambhara, Jakarta Selatan"
-    }
-
-};
-
-
-
-/* =====================================================
-   FORMAT TANGGAL
-===================================================== */
-
-function getWeddingDate() {
-
-    /*
-        Tambahkan waktu lokal supaya tidak
-        bergeser satu hari karena timezone.
-    */
-
-    const parts = weddingDate.split("-");
-
-    const year = Number(parts[0]);
-    const month = Number(parts[1]);
-    const day = Number(parts[2]);
-
-    return new Date(
-        year,
-        month - 1,
-        day
-    );
-}
-
-
-
-/* =====================================================
-   NAMA BULAN
-===================================================== */
-
-const monthNames = [
-
-    "JANUARI",
-    "FEBRUARI",
-    "MARET",
-    "APRIL",
-    "MEI",
-    "JUNI",
-    "JULI",
-    "AGUSTUS",
-    "SEPTEMBER",
-    "OKTOBER",
-    "NOVEMBER",
-    "DESEMBER"
-
-];
-
-
-
-/* =====================================================
-   NAMA HARI
-===================================================== */
-
-const dayNames = [
-
-    "Minggu",
-    "Senin",
-    "Selasa",
-    "Rabu",
-    "Kamis",
-    "Jumat",
-    "Sabtu"
-
-];
-
-
-
-/* =====================================================
-   SET TANGGAL OTOMATIS
-===================================================== */
-
-function setupWeddingDate() {
-
-    const date = getWeddingDate();
-
-    const year = date.getFullYear();
-
-    const month = date.getMonth();
-
-    const day = date.getDate();
-
-    const dayName = dayNames[
-        date.getDay()
-    ];
-
-
-    /*
-        HOME
-    */
-
-    const homeDate =
-        document.getElementById(
-            "homeWeddingDate"
-        );
-
-
-    if (homeDate) {
-
-        homeDate.textContent =
-            `${dayName}, ${day} ${monthNames[month].charAt(0) + monthNames[month].slice(1).toLowerCase()} ${year}`;
-
-    }
-
-
-    /*
-        ACARA - BULAN
-    */
-
-    const calendarMonth =
-        document.getElementById(
-            "calendarMonth"
-        );
-
-
-    if (calendarMonth) {
-
-        calendarMonth.textContent =
-            monthNames[month];
-
-    }
-
-
-    /*
-        ACARA - TAHUN
-    */
-
-    const calendarYear =
-        document.getElementById(
-            "calendarYear"
-        );
-
-
-    if (calendarYear) {
-
-        calendarYear.textContent =
-            year;
-
-    }
-
-
-    /*
-        TANGGAL ACARA
-    */
-
-    const eventDateText =
-        document.getElementById(
-            "eventDateText"
-        );
-
-
-    if (eventDateText) {
-
-        eventDateText.innerHTML =
-            `${dayName}, ${day} ${monthNames[month].charAt(0) + monthNames[month].slice(1).toLowerCase()} ${year} — akad ${weddingData.akad.time},<br>resepsi ${weddingData.reception.time}`;
-
-    }
-
-}
-
-
-
-/* =====================================================
-   BUAT KALENDER OTOMATIS
-===================================================== */
-
-function createCalendar() {
-
-    const calendarGrid =
-        document.getElementById(
-            "calendarGrid"
-        );
-
-
-    if (!calendarGrid) {
-        return;
-    }
-
-
-    /*
-        Bersihkan kalender lama
-    */
-
-    calendarGrid.innerHTML = "";
-
-
-    const date =
-        getWeddingDate();
-
-
-    const year =
-        date.getFullYear();
-
-
-    const month =
-        date.getMonth();
-
-
-    const eventDay =
-        date.getDate();
-
-
-    /*
-        Hari pertama bulan.
-
-        JavaScript:
-        Minggu = 0
-        Senin = 1
-        ...
-        Sabtu = 6
-    */
-
-    const firstDay =
-        new Date(
-            year,
-            month,
-            1
-        ).getDay();
-
-
-    /*
-        Jumlah hari bulan.
-    */
-
-    const daysInMonth =
-        new Date(
-            year,
-            month + 1,
-            0
-        ).getDate();
-
-
-    /*
-        Karena kalender kita memakai:
-
-        M S S R K J S
-
-        maka urutannya:
-        Minggu, Senin, Selasa,
-        Rabu, Kamis, Jumat, Sabtu
-
-        Kita tetap menggunakan
-        index JavaScript.
-    */
-
-
-    /*
-        Kotak kosong sebelum tanggal 1.
-    */
-
-    for (
-        let i = 0;
-        i < firstDay;
-        i++
-    ) {
-
-        const empty =
-            document.createElement(
-                "span"
-            );
-
-        empty.className =
-            "empty";
-
-        calendarGrid.appendChild(
-            empty
-        );
-
-    }
-
-
-    /*
-        Buat tanggal 1 sampai akhir bulan.
-    */
-
-    for (
-        let day = 1;
-        day <= daysInMonth;
-        day++
-    ) {
-
-
-        const dateElement =
-            document.createElement(
-                "span"
-            );
-
-
-        /*
-            Kalau tanggal ini adalah
-            tanggal pernikahan.
-        */
-
-        if (day === eventDay) {
-
-            dateElement.className =
-                "event-date";
-
-
-            /*
-                Bunga / kelopak.
-            */
-
-            const petal1 =
-                document.createElement("i");
-
-            petal1.className =
-                "flower-petal petal-1";
-
-
-            const petal2 =
-                document.createElement("i");
-
-            petal2.className =
-                "flower-petal petal-2";
-
-
-            const petal3 =
-                document.createElement("i");
-
-            petal3.className =
-                "flower-petal petal-3";
-
-
-            const petal4 =
-                document.createElement("i");
-
-            petal4.className =
-                "flower-petal petal-4";
-
-
-            const petal5 =
-                document.createElement("i");
-
-            petal5.className =
-                "flower-petal petal-5";
-
-
-            /*
-                Angka tanggal.
-            */
-
-            const number =
-                document.createElement(
-                    "b"
-                );
-
-            number.textContent =
-                day;
-
-
-            dateElement.appendChild(
-                petal1
-            );
-
-            dateElement.appendChild(
-                petal2
-            );
-
-            dateElement.appendChild(
-                petal3
-            );
-
-            dateElement.appendChild(
-                petal4
-            );
-
-            dateElement.appendChild(
-                petal5
-            );
-
-            dateElement.appendChild(
-                number
-            );
-
-        } else {
-
-            dateElement.textContent =
-                day;
-
-        }
-
-
-        calendarGrid.appendChild(
-            dateElement
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   OPEN INVITATION
-===================================================== */
-
-function setupOpening() {
-
-    const openButton =
-        document.getElementById("openInvitation");
-
-    const openingPage =
-        document.getElementById("openingPage");
-
-    const invitation =
-        document.getElementById("invitation");
-
-    const music =
-        document.getElementById("backgroundMusic");
-
-
-    console.log("OPEN BUTTON:", openButton);
-    console.log("OPENING PAGE:", openingPage);
-    console.log("INVITATION:", invitation);
-
-
-    if (!openButton) {
-
-        console.error(
-            "Tombol #openInvitation tidak ditemukan!"
-        );
-
-        return;
-    }
-
-
-    openButton.addEventListener("click", function (event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        console.log("❤️ TOMBOL BUKA DIKLIK");
-
-
-        /* ==========================
-           MUSIK
-        ========================== */
-
-        if (music) {
-
-            music.volume = 0.65;
-
-            music.play()
-                .then(function () {
-
-                    console.log("🎵 Musik mulai");
-
-                    if (typeof updateMusicButton === "function") {
-                        updateMusicButton();
-                    }
-
-                })
-                .catch(function (error) {
-
-                    console.log(
-                        "Musik tidak dapat autoplay:",
-                        error
-                    );
-
-                });
-
-        }
-
-
-        /* ==========================
-           TAMPILKAN UNDANGAN
-        ========================== */
-
-        if (invitation) {
-
-            invitation.classList.add("show");
-
-        }
-
-
-        /* ==========================
-           TUTUP HALAMAN PEMBUKA
-        ========================== */
-
-        if (openingPage) {
-
-            openingPage.classList.add("hide");
-
-        }
-
-
-        /* ==========================
-           AKTIFKAN SCROLL
-        ========================== */
-
-        document.body.style.overflowY = "auto";
-
-
-        /* ==========================
-           MASUK KE HOME
-        ========================== */
-
-        setTimeout(function () {
-
-            const home =
-                document.getElementById("home");
-
-            if (home) {
-
-                home.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-            }
-
-        }, 300);
-
+(function () {
+    'use strict';
+
+    const $ = (id) => document.getElementById(id);
+    const qs = (selector, root = document) => root.querySelector(selector);
+    const qsa = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+    document.addEventListener('DOMContentLoaded', function () {
+        initOpening();
+        initMusic();
+        initCalendar();
+        initGallery();
+        initNavigation();
+        initDoa();
+        initCountdown();
+        initScrollReveal();
     });
 
-}
+    /* =====================================================
+       COVER / OPEN INVITATION
+    ===================================================== */
+    function initOpening() {
+        const opening = $('openingPage');
+        const invitation = $('invitation');
+        const button = $('openInvitation');
+        if (!opening || !invitation || !button) return;
 
+        // Jangan biarkan browser mengembalikan posisi scroll lama.
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        document.body.classList.add('cover-active');
 
+        button.addEventListener('click', function () {
+            // Selalu mulai isi undangan dari halaman paling atas.
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            opening.classList.add('closing');
+            opening.classList.add('hide');
+            invitation.classList.add('show');
+            invitation.classList.add('visible');
+            document.body.classList.remove('cover-active');
 
-/* =====================================================
-   MUSIC BUTTON
-===================================================== */
+            setTimeout(function () {
+                opening.style.display = 'none';
+            }, 1250);
 
-function setupMusic() {
-
-    const button =
-        document.getElementById(
-            "musicButton"
-        );
-
-
-    const music =
-        document.getElementById(
-            "backgroundMusic"
-        );
-
-
-    if (!button || !music) {
-        return;
+            const music = $('backgroundMusic');
+            const musicButton = $('musicButton');
+            if (music) {
+                music.play().then(function () {
+                    if (musicButton) musicButton.classList.add('playing');
+                }).catch(function () {
+                    // Autoplay may be blocked by the browser.
+                });
+            }
+        });
     }
 
+    /* =====================================================
+       MUSIC
+    ===================================================== */
+    function initMusic() {
+        const music = $('backgroundMusic');
+        const button = $('musicButton');
+        if (!music || !button) return;
 
-    button.addEventListener(
-        "click",
-        function () {
-
-
-            if (
-                music.paused
-            ) {
-
-                music.play()
-                    .then(() => {
-
-                        updateMusicButton();
-
-                    })
-                    .catch(() => {});
-
-
+        button.addEventListener('click', function () {
+            if (music.paused) {
+                music.play().then(function () {
+                    button.classList.add('playing');
+                    button.textContent = '♫';
+                }).catch(function () {});
             } else {
-
                 music.pause();
-
-                updateMusicButton();
-
+                button.classList.remove('playing');
+                button.textContent = '♪';
             }
+        });
+    }
 
+    /* =====================================================
+       CALENDAR — NOVEMBER 2026 / EVENT DATE 8
+    ===================================================== */
+    function initCalendar() {
+        const grid = $('calendarGrid');
+        const month = $('calendarMonth');
+        const year = $('calendarYear');
+        const eventText = $('eventDateText');
+        if (!grid) return;
+
+        const eventDate = 8;
+        const date = new Date(2026, 10, eventDate);
+        const monthName = date.toLocaleDateString('id-ID', { month: 'long' });
+        const weekday = date.toLocaleDateString('id-ID', { weekday: 'long' });
+
+        if (month) month.textContent = monthName.toUpperCase();
+        if (year) year.textContent = '2026';
+        if (eventText) eventText.textContent = `${weekday}, ${eventDate} ${monthName} 2026`;
+
+        grid.innerHTML = '';
+
+        // November 2026 starts on Sunday. The design uses M-S-S-R-K-J-S.
+        // Convert JS Sunday=0 into Monday-first index.
+        const firstDay = new Date(2026, 10, 1).getDay();
+        const mondayIndex = firstDay === 0 ? 6 : firstDay - 1;
+        const daysInMonth = new Date(2026, 11, 0).getDate();
+
+        for (let i = 0; i < mondayIndex; i++) {
+            const empty = document.createElement('span');
+            empty.className = 'empty';
+            empty.textContent = '';
+            grid.appendChild(empty);
         }
-    );
 
+        for (let day = 1; day <= daysInMonth; day++) {
+            const cell = document.createElement('span');
+            cell.textContent = day;
 
-    updateMusicButton();
+            if (day === eventDate) {
+                cell.className = 'event-date';
+                const number = document.createElement('b');
+                number.textContent = day;
+                cell.textContent = '';
+                cell.appendChild(number);
 
-}
-
-
-
-/* =====================================================
-   UPDATE ICON MUSIK
-===================================================== */
-
-function updateMusicButton() {
-
-    const button =
-        document.getElementById(
-            "musicButton"
-        );
-
-
-    const music =
-        document.getElementById(
-            "backgroundMusic"
-        );
-
-
-    if (!button || !music) {
-        return;
-    }
-
-
-    if (music.paused) {
-
-        button.innerHTML =
-            "♪";
-
-        button.classList.remove(
-            "music-playing"
-        );
-
-    } else {
-
-        button.innerHTML =
-            "♫";
-
-        button.classList.add(
-            "music-playing"
-        );
-
-    }
-
-}
-
-
-
-/* =====================================================
-   NAVBAR
-===================================================== */
-
-function setupNavigation() {
-
-    const navItems =
-        document.querySelectorAll(
-            ".nav-item"
-        );
-
-
-    navItems.forEach(
-        function (item) {
-
-
-            item.addEventListener(
-                "click",
-                function (event) {
-
-                    event.preventDefault();
-
-
-                    const targetId =
-                        item.dataset.target;
-
-
-                    const target =
-                        document.getElementById(
-                            targetId
-                        );
-
-
-                    if (!target) {
-                        return;
-                    }
-
-
-                    /*
-                        Scroll menuju section.
-                    */
-
-                    target.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-
-
-                    /*
-                        Active navbar.
-                    */
-
-                    navItems.forEach(
-                        function (nav) {
-
-                            nav.classList.remove(
-                                "active"
-                            );
-
-                        }
-                    );
-
-
-                    item.classList.add(
-                        "active"
-                    );
-
+                for (let p = 1; p <= 5; p++) {
+                    const petal = document.createElement('i');
+                    petal.className = `flower-petal petal-${p}`;
+                    cell.appendChild(petal);
                 }
-            );
-
-        }
-    );
-
-}
-
-
-
-/* =====================================================
-   NAVBAR OTOMATIS SESUAI SCROLL
-===================================================== */
-
-function setupScrollNavigation() {
-
-    const sections =
-        document.querySelectorAll(
-            ".section"
-        );
-
-
-    const navItems =
-        document.querySelectorAll(
-            ".nav-item"
-        );
-
-
-    if (
-        !sections.length ||
-        !navItems.length
-    ) {
-
-        return;
-
-    }
-
-
-    const observer =
-        new IntersectionObserver(
-            function (entries) {
-
-
-                entries.forEach(
-                    function (entry) {
-
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-
-                            const id =
-                                entry.target.id;
-
-
-                            navItems.forEach(
-                                function (item) {
-
-                                    item.classList.remove(
-                                        "active"
-                                    );
-
-
-                                    if (
-                                        item.dataset.target === id
-                                    ) {
-
-                                        item.classList.add(
-                                            "active"
-                                        );
-
-                                    }
-
-                                }
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-            {
-                threshold: 0.45
             }
-        );
 
-
-    sections.forEach(
-        function (section) {
-
-            observer.observe(
-                section
-            );
-
+            grid.appendChild(cell);
         }
-    );
-
-}
-
-
-
-/* =====================================================
-   UPDATE DATA EVENT
-===================================================== */
-
-function setupEventData() {
-
-    const akadPlace =
-        document.querySelector(
-            ".event-block:nth-of-type(1) .event-place"
-        );
-
-
-    /*
-        Saat ini data acara sudah ditulis
-        langsung di HTML.
-
-        Bagian ini disiapkan agar nanti
-        lokasi bisa dibuat sepenuhnya
-        otomatis juga.
-    */
-
-}
-
-
-
-/* =====================================================
-   INIT
-===================================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-
-        /*
-            Tanggal otomatis.
-        */
-
-        setupWeddingDate();
-
-
-        /*
-            Buat kalender otomatis.
-        */
-
-        createCalendar();
-
-
-        /*
-            Tombol buka undangan.
-        */
-
-        setupOpening();
-
-
-        /*
-            Musik.
-        */
-
-        setupMusic();
-
-
-        /*
-            Navbar.
-        */
-
-        setupNavigation();
-
-
-        /*
-            Navbar mengikuti scroll.
-        */
-
-        setupScrollNavigation();
-
-
-        /*
-            Data acara.
-        */
-
-        setupEventData();
-
     }
-);
 
-/* =====================================================
-   GALERI OTOMATIS
-===================================================== */
+    /* =====================================================
+       GALLERY
+    ===================================================== */
+    function initGallery() {
+        const track = $('galleryTrack');
+        if (!track) return;
 
-function setupGallery() {
+        const slides = qsa('.gallery-slide', track);
+        const dots = qsa('.gallery-dot');
+        const prev = $('galleryPrev');
+        const next = $('galleryNext');
+        if (!slides.length) return;
 
-    const slides =
-        document.querySelectorAll(".gallery-slide");
+        let current = 0;
 
-    const dots =
-        document.querySelectorAll(".gallery-dot");
-
-    const prev =
-        document.getElementById("galleryPrev");
-
-    const next =
-        document.getElementById("galleryNext");
-
-    if (!slides.length) return;
-
-    let current = 0;
-
-    let autoSlide;
-
-
-    function showSlide(index) {
-
-        if (index >= slides.length) {
-            index = 0;
-        }
-
-        if (index < 0) {
-            index = slides.length - 1;
-        }
-
-        current = index;
-
-
-        slides.forEach((slide, i) => {
-
-            slide.classList.toggle(
-                "active",
-                i === current
-            );
-
+        // Mode galeri dibuat berbasis opacity. Ini lebih stabil di mobile dan
+        // mencegah slide kedua+ menjadi kosong akibat transform/absolute layout.
+        slides.forEach(slide => {
+            const img = slide.querySelector('img');
+            if (img) {
+                img.loading = 'eager';
+                img.decoding = 'async';
+            }
         });
 
+        function show(index) {
+            current = (index + slides.length) % slides.length;
+            slides.forEach((slide, i) => {
+                const active = i === current;
+                slide.classList.toggle('active', active);
+                slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+            });
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+        }
 
-        dots.forEach((dot, i) => {
+        if (prev) prev.addEventListener('click', () => show(current - 1));
+        if (next) next.addEventListener('click', () => show(current + 1));
+        dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
 
-            dot.classList.toggle(
-                "active",
-                i === current
-            );
-
+        let timer = setInterval(() => show(current + 1), 4500);
+        [track, prev, next, ...dots].forEach(el => {
+            if (!el) return;
+            el.addEventListener('mouseenter', () => clearInterval(timer));
+            el.addEventListener('mouseleave', () => {
+                clearInterval(timer);
+                timer = setInterval(() => show(current + 1), 4500);
+            });
         });
 
+        show(0);
     }
 
+    /* =====================================================
+       BOTTOM NAVIGATION
+    ===================================================== */
+    function initNavigation() {
+        const items = qsa('.nav-item');
+        if (!items.length) return;
 
-    function nextSlide() {
+        items.forEach(item => {
+            item.addEventListener('click', function (e) {
+                const targetId = item.dataset.target;
+                const target = targetId ? $(targetId) : null;
+                if (!target) return;
 
-        showSlide(current + 1);
+                e.preventDefault();
+                items.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
 
-    }
+        const sections = items
+            .map(item => $(item.dataset.target))
+            .filter(Boolean);
 
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const id = entry.target.id;
+                    items.forEach(item => item.classList.toggle('active', item.dataset.target === id));
+                });
+            }, { threshold: 0.35 });
 
-    function prevSlide() {
-
-        showSlide(current - 1);
-
-    }
-
-
-    function startAutoSlide() {
-
-        clearInterval(autoSlide);
-
-        autoSlide = setInterval(
-            nextSlide,
-            3500
-        );
-
-    }
-
-
-    if (next) {
-
-        next.addEventListener(
-            "click",
-            function () {
-
-                nextSlide();
-
-                startAutoSlide();
-
-            }
-        );
-
-    }
-
-
-    if (prev) {
-
-        prev.addEventListener(
-            "click",
-            function () {
-
-                prevSlide();
-
-                startAutoSlide();
-
-            }
-        );
-
-    }
-
-
-    dots.forEach((dot, index) => {
-
-        dot.addEventListener(
-            "click",
-            function () {
-
-                showSlide(index);
-
-                startAutoSlide();
-
-            }
-        );
-
-    });
-
-
-    /* MULAI */
-
-    showSlide(0);
-
-    startAutoSlide();
-
-}
-
-
-document.addEventListener(
-    "DOMContentLoaded",
-    setupGallery
-);
-
-/* =====================================================
-   KADO / REKENING
-===================================================== */
-
-function setupGift() {
-
-    const openButton =
-        document.getElementById("openGiftButton");
-
-    const modal =
-        document.getElementById("giftModal");
-
-    const closeButton =
-        document.getElementById("closeGiftModal");
-
-    const overlay =
-        document.getElementById("giftModalOverlay");
-
-    const copyButton =
-        document.getElementById("copyRekeningButton");
-
-    const rekeningNumber =
-        document.getElementById("rekeningNumber");
-
-    const copySuccess =
-        document.getElementById("copySuccess");
-
-
-    if (!openButton || !modal) {
-        return;
-    }
-
-
-    /* BUKA POPUP */
-
-    openButton.addEventListener(
-        "click",
-        function () {
-
-         modal.classList.add("show");
-
-document.body.classList.add("gift-modal-open");
-
+            sections.forEach(section => observer.observe(section));
         }
-    );
-
-
-    /* TUTUP */
-
-    function closeGift() {
-
-        modal.classList.remove("show");
-
-document.body.classList.remove("gift-modal-open");
-
     }
 
+    /* =====================================================
+       SCROLL REVEAL — ANIMASI SAAT SECTION MASUK VIEW
+    ===================================================== */
+    function initScrollReveal() {
+        const groups = [
+            '.home-content > *',
+            '.guest-home > *',
+            '.acara-content > *',
+            '.agenda-section > *',
+            '.gallery-section > .gallery-title',
+            '.gallery-section > .gallery-subtitle',
+            '.gallery-section > .gallery-slider',
+            '.gallery-section > .gallery-dots',
+            '.gallery-section > .gallery-caption',
+            '.dresscode-section > *',
+            '.gift-section > *',
+            '.doa-section > *',
+            '.ketemu-section > *'
+        ];
 
-    if (closeButton) {
+        const elements = qsa(groups.join(', '));
+        elements.forEach((el, index) => {
+            if (el.classList.contains('scroll-reveal')) return;
+            el.classList.add('scroll-reveal');
+            el.style.setProperty('--reveal-delay', `${Math.min((index % 7) * 70, 420)}ms`);
+        });
 
-        closeButton.addEventListener(
-            "click",
-            closeGift
-        );
+        if (!('IntersectionObserver' in window)) {
+            elements.forEach(el => el.classList.add('is-visible'));
+            return;
+        }
 
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+        elements.forEach(el => observer.observe(el));
     }
 
+    /* =====================================================
+       COUNTDOWN — SAMPAI KETEMU
+       Target: 8 November 2026, 08.00 WIB
+    ===================================================== */
+    function initCountdown() {
+        const days = $('countDays');
+        const hours = $('countHours');
+        const minutes = $('countMinutes');
+        const seconds = $('countSeconds');
+        if (!days || !hours || !minutes || !seconds) return;
 
-    if (overlay) {
+        const targetTime = new Date('2026-11-08T08:00:00+07:00').getTime();
 
-        overlay.addEventListener(
-            "click",
-            closeGift
-        );
+        function pad(value) {
+            return String(Math.max(0, value)).padStart(2, '0');
+        }
 
-    }
+        function update() {
+            const diff = targetTime - Date.now();
 
-
-    /* ESC */
-
-    document.addEventListener(
-        "keydown",
-        function (event) {
-
-            if (
-                event.key === "Escape" &&
-                modal.classList.contains("show")
-            ) {
-
-                closeGift();
-
+            if (diff <= 0) {
+                days.textContent = '00';
+                hours.textContent = '00';
+                minutes.textContent = '00';
+                seconds.textContent = '00';
+                return;
             }
 
+            const totalSeconds = Math.floor(diff / 1000);
+            const d = Math.floor(totalSeconds / 86400);
+            const h = Math.floor((totalSeconds % 86400) / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
+
+            days.textContent = String(d);
+            hours.textContent = pad(h);
+            minutes.textContent = pad(m);
+            seconds.textContent = pad(s);
         }
-    );
 
+        update();
+        const timer = setInterval(update, 1000);
+        window.addEventListener('beforeunload', () => clearInterval(timer), { once: true });
+    }
 
-    /* COPY */
+    /* =====================================================
+       DOA — POPUP TULIS UCAPAN
+    ===================================================== */
+    /* =====================================================
+       DOA — POPUP + CLOUD GOOGLE SHEETS
+    ===================================================== */
 
-    if (copyButton && rekeningNumber) {
+    // =====================================================
+    // GANTI URL INI SETELAH GOOGLE APPS SCRIPT SUDAH DEPLOY
+    // Contoh: https://script.google.com/macros/s/XXXXX/exec
+    // =====================================================
+    const DOA_CLOUD_URL = 'https://script.google.com/macros/s/AKfycbxBeNT0C6B03O3u7Yda19Ovubvlk0fjV77oER3t341VtrvodpuamJjNUk3CXvGf7DdU/exec';
 
-        copyButton.addEventListener(
-            "click",
-            async function () {
+    function initDoa() {
+        const openButton = $('openDoaButton');
+        const modal = $('doaModal');
+        const overlay = $('doaModalOverlay');
+        const closeButton = $('closeDoaModal');
+        const form = $('doaForm');
+        const nameInput = $('doaName');
+        const attendance = $('doaAttendance');
+        const guests = $('doaGuests');
+        const message = $('doaMessage');
+        const counter = $('doaCharCount');
+        const list = $('doaMessageList');
+        const empty = $('doaEmptyMessage');
+        const success = $('doaSuccess');
 
-                const number =
-                    rekeningNumber.textContent
-                        .replace(/\s/g, "")
-                        .trim();
+        if (!openButton || !modal || !form) return;
 
+        function openModal() {
+            modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
+            setTimeout(() => {
+                if (!nameInput) return;
+                try { nameInput.focus({ preventScroll: true }); }
+                catch (_) { nameInput.focus(); }
+            }, 180);
+        }
 
-                try {
+        function closeModal() {
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+        }
 
-                    await navigator.clipboard.writeText(
-                        number
-                    );
+        openButton.addEventListener('click', openModal);
+        if (overlay) overlay.addEventListener('click', closeModal);
+        if (closeButton) closeButton.addEventListener('click', closeModal);
 
-                    showCopySuccess();
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+        });
 
-                } catch (error) {
+        if (message && counter) {
+            const updateCounter = () => {
+                counter.textContent = `${message.value.length}/300`;
+            };
+            message.addEventListener('input', updateCounter);
+            updateCounter();
+        }
 
-                    /* fallback */
+        // Ambil semua ucapan dari cloud saat halaman dibuka.
+        loadCloudWishes(list, empty);
 
-                    const textarea =
-                        document.createElement("textarea");
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
 
-                    textarea.value = number;
+            const name = (nameInput?.value || '').trim();
+            const status = attendance?.value || 'Hadir';
+            const totalGuests = guests?.value || '1';
+            const text = (message?.value || '').trim();
 
-                    document.body.appendChild(
-                        textarea
-                    );
+            if (!name || !text) {
+                if (nameInput && !name) nameInput.focus();
+                else if (message) message.focus();
+                return;
+            }
 
-                    textarea.select();
+            const data = {
+                name,
+                status,
+                guests: totalGuests,
+                message: text
+            };
 
-                    document.execCommand("copy");
+            const submitButton = form.querySelector('.doa-submit-button');
+            const originalButtonHTML = submitButton ? submitButton.innerHTML : '';
 
-                    textarea.remove();
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.innerHTML = 'MENGIRIM... <span>♥</span>';
+            }
 
-                    showCopySuccess();
-
+            try {
+                if (!DOA_CLOUD_URL) {
+                    // Mode lokal: tetap tampil, tetapi belum tersimpan cloud.
+                    addWish(data, list, empty);
+                } else {
+                    await saveWishToCloud(data);
+                    addWish(data, list, empty);
                 }
 
+                if (success) {
+                    success.textContent = DOA_CLOUD_URL
+                        ? '✓ Ucapan berhasil disimpan ❤️'
+                        : '✓ Ucapan tampil (cloud belum dihubungkan)';
+                    success.classList.add('show');
+                    setTimeout(() => success.classList.remove('show'), 2500);
+                }
+
+                form.reset();
+                if (counter) counter.textContent = '0/300';
+                setTimeout(closeModal, 600);
+            } catch (error) {
+                console.error('Gagal menyimpan ucapan:', error);
+                if (success) {
+                    success.textContent = '✕ Ucapan gagal disimpan. Coba lagi.';
+                    success.classList.add('show');
+                    setTimeout(() => success.classList.remove('show'), 3000);
+                }
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonHTML;
+                }
             }
-        );
-
+        });
     }
 
+    async function loadCloudWishes(list, empty) {
+        if (!DOA_CLOUD_URL || !list) return;
 
-    function showCopySuccess() {
+        try {
+            const response = await fetch(`${DOA_CLOUD_URL}?action=getWishes`, {
+                method: 'GET',
+                cache: 'no-store'
+            });
 
-        if (!copySuccess) return;
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-        copySuccess.classList.add("show");
+            const result = await response.json();
+            if (!result.success || !Array.isArray(result.wishes)) return;
 
-        setTimeout(
-            function () {
+            // Hapus ucapan cloud yang sebelumnya ditampilkan, tetapi pertahankan
+            // kartu contoh bawaan desain.
+            list.querySelectorAll('.doa-wish-cloud').forEach(el => el.remove());
 
-                copySuccess.classList.remove(
-                    "show"
-                );
+            if (empty) {
+                empty.style.display = result.wishes.length ? 'none' : 'none';
+            }
 
-            },
-            2500
-        );
-
+            // Backend sudah mengurutkan terbaru -> terlama.
+            [...result.wishes].reverse().forEach(item => {
+                addWish(item, list, empty, true);
+            });
+        } catch (error) {
+            console.error('Gagal mengambil ucapan dari cloud:', error);
+        }
     }
 
-}
+    async function saveWishToCloud(data) {
+        const body = new URLSearchParams();
+        body.set('action', 'addWish');
+        body.set('nama', data.name);
+        body.set('kehadiran', data.status);
+        body.set('jumlah', data.guests);
+        body.set('pesan', data.message);
 
+        // application/x-www-form-urlencoded adalah request sederhana,
+        // sehingga tidak memicu preflight CORS seperti JSON.
+        const response = await fetch(DOA_CLOUD_URL, {
+            method: 'POST',
+            body,
+            mode: 'cors'
+        });
 
-document.addEventListener(
-    "DOMContentLoaded",
-    setupGift
-);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const result = await response.json();
+        if (!result.success) throw new Error(result.error || 'Server menolak data');
+        return result;
+    }
+
+    function addWish(data, list, empty, fromCloud = false) {
+        if (!list) return;
+        if (empty) empty.style.display = 'none';
+
+        const card = document.createElement('article');
+        card.className = `doa-wish-card ${fromCloud ? 'doa-wish-cloud' : 'doa-wish-new'}`;
+
+        const avatar = document.createElement('div');
+        avatar.className = 'doa-wish-avatar';
+        avatar.textContent = (data.name || '?').charAt(0).toUpperCase();
+
+        const content = document.createElement('div');
+        content.className = 'doa-wish-content';
+
+        const head = document.createElement('div');
+        head.className = 'doa-wish-head';
+
+        const name = document.createElement('strong');
+        name.textContent = data.name || 'Tamu';
+
+        const status = document.createElement('span');
+        status.className = 'doa-wish-status';
+        status.textContent = data.status || 'Hadir';
+
+        head.appendChild(name);
+        head.appendChild(status);
+
+        const text = document.createElement('p');
+        text.textContent = data.message || data.pesan || '';
+
+        const meta = document.createElement('small');
+        meta.textContent = `${data.guests || data.jumlah || '1'} tamu`;
+
+        content.appendChild(head);
+        content.appendChild(text);
+        content.appendChild(meta);
+        card.appendChild(avatar);
+        card.appendChild(content);
+
+        list.prepend(card);
+        setTimeout(() => card.classList.remove('doa-wish-new'), 700);
+    }
+
+})();
