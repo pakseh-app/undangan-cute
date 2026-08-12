@@ -343,11 +343,11 @@
        DOA — POPUP + CLOUD GOOGLE SHEETS
     ===================================================== */
 
-    // =====================================================
-    // GANTI URL INI SETELAH GOOGLE APPS SCRIPT SUDAH DEPLOY
-    // Contoh: https://script.google.com/macros/s/XXXXX/exec
-    // =====================================================
-    const DOA_CLOUD_URL = '';
+   // =====================================================
+// GANTI URL INI SETELAH GOOGLE APPS SCRIPT SUDAH DEPLOY
+// =====================================================
+
+const DOA_CLOUD_URL = 'https://script.google.com/macros/s/AKfycbxBeNT0C6B03O3u7Yda19Ovubvlk0fjV77oER3t341VtrvodpuamJjNUk3CXvGf7DdU/exec';
 
     function initDoa() {
         const openButton = $('openDoaButton');
