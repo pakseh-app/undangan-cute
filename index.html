@@ -220,90 +220,33 @@
             </h2>
 
 
-            <!-- FOTO LOVE -->
-
-            <div class="heart-photo-wrapper">
-
-
-                <svg
-                    class="heart-photo"
-                    viewBox="0 0 300 270"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-
-                    <defs>
-
-                        <clipPath id="heartClip">
-
-                            <path
-                                d="M150 250
-                                C130 230 35 165 25 90
-                                C15 20 100 0 150 65
-                                C200 0 285 20 275 90
-                                C265 165 170 230 150 250Z"
-                            />
-
-                        </clipPath>
-
-                    </defs>
-
-
-                    <image
-    href="assets/foto.jpg"
-    x="0"
-    y="0"
-    width="300"
-    height="270"
-    preserveAspectRatio="xMidYMid meet"
-    clip-path="url(#heartClip)"
-/>
-
-                    <path
-                        d="M150 250
-                        C130 230 35 165 25 90
-                        C15 20 100 0 150 65
-                        C200 0 285 20 275 90
-                        C265 165 170 230 150 250Z"
-
-                        fill="none"
-
-                        stroke="#f39a0a"
-
-                        stroke-width="13"
-
-                        stroke-linecap="round"
-
-                        stroke-linejoin="round"
-
-                        vector-effect="non-scaling-stroke"
-                    />
-
-                </svg>
-
-
-                <!-- NAMA PENGANTIN DI BAWAH FOTO -->
-
-<div class="circle-text">
-    KANAYA &amp; BIMASENA
-</div>
-
-
-                <!-- DEKORASI BELAKANG -->
-
-                <div class="heart-decoration heart-decoration-1">
-                    ✦
+            <!-- FOTO POLAROID PENGANTIN -->
+            <div class="polaroid-couple-wrapper">
+                <div class="polaroid-card polaroid-pria">
+                    <div class="polaroid-photo">
+                        <img src="assets/foto-pria.jpg" alt="Foto Pengantin Pria">
+                    </div>
+                    <div class="polaroid-caption">PAKSEH</div>
                 </div>
 
-                <div class="heart-decoration heart-decoration-2">
-                    ✿
-                </div>
+                <div class="polaroid-heart">♥</div>
 
-                <div class="heart-decoration heart-decoration-3">
-                    ✦
+                <div class="polaroid-card polaroid-wanita">
+                    <div class="polaroid-photo">
+                        <img src="assets/foto-wanita.jpg" alt="Foto Pengantin Wanita">
+                    </div>
+                    <div class="polaroid-caption">WULAN</div>
                 </div>
-
             </div>
 
+            <!-- NAMA PENGANTIN -->
+            <div class="home-couple-names">
+                <span>WULAN</span>
+                <strong>&amp;</strong>
+                <span>PAKSEH</span>
+            </div>
+
+            <div class="home-love-caption">Dua hati, satu cerita, selamanya ♥</div>
 
             <!-- TANGGAL OTOMATIS -->
 
@@ -410,53 +353,16 @@
             </h2>
 
 
-            <!-- OTOMATIS -->
-
-            <div
-                class="acara-month"
-                id="calendarMonth"
-            ></div>
-
-
-            <div
-                class="acara-year"
-                id="calendarYear"
-            ></div>
-
-
-            <!-- KALENDER -->
-
-            <div class="calendar-box">
-
-
-                <div class="calendar-week">
-
-                    <span>M</span>
-                    <span>S</span>
-                    <span>S</span>
-                    <span>R</span>
-                    <span>K</span>
-                    <span>J</span>
-                    <span>S</span>
-
-                </div>
-
-
-                <div
-                    class="calendar-grid"
-                    id="calendarGrid"
-                ></div>
-
-
+            <!-- TANGGAL PRAKTIS — TIDAK BERGANTUNG KALENDER HP/PC -->
+            <div class="simple-event-date">
+                <div class="simple-event-day">MINGGU</div>
+                <div class="simple-event-number">8</div>
+                <div class="simple-event-month">NOVEMBER 2026</div>
             </div>
-
 
             <!-- TANGGAL OTOMATIS -->
 
-            <p
-                class="acara-date"
-                id="eventDateText"
-            ></p>
+            <p class="acara-date" id="eventDateText" style="display:none"></p>
 
 
 
@@ -1191,6 +1097,237 @@
 
 </section>
 
+    <!-- =================================================
+         DOA
+    ================================================== -->
+
+    <section class="section doa-section" id="doa">
+
+        <div class="doa-deco doa-flower doa-flower-1">✿</div>
+        <div class="doa-deco doa-flower doa-flower-2">✿</div>
+        <div class="doa-deco doa-flower doa-flower-3">✿</div>
+        <div class="doa-deco doa-sparkle doa-sparkle-1">✦</div>
+        <div class="doa-deco doa-sparkle doa-sparkle-2">✦</div>
+        <div class="doa-deco doa-sparkle doa-sparkle-3">✦</div>
+        <div class="doa-orb doa-orb-1"></div>
+        <div class="doa-orb doa-orb-2"></div>
+        <div class="doa-heart doa-heart-1">♥</div>
+        <div class="doa-heart doa-heart-2">♥</div>
+
+        <div class="doa-content">
+            <div class="doa-small-title">sedikit kata, banyak doa</div>
+            <h2 class="doa-title">PESAN &amp; DOA</h2>
+            <p class="doa-subtitle">
+                Tinggalkan ucapan dan doa terbaik untuk perjalanan cinta kami.
+            </p>
+
+            <div class="doa-message-list" id="doaMessageList">
+                <article class="doa-wish-card">
+                    <div class="doa-wish-avatar">A</div>
+                    <div class="doa-wish-content">
+                        <div class="doa-wish-head">
+                            <strong>Andi &amp; Keluarga</strong>
+                            <span class="doa-wish-status">Hadir</span>
+                        </div>
+                        <p>Selamat menempuh hidup baru. Semoga selalu bahagia, langgeng, dan penuh keberkahan. ❤️</p>
+                        <small>2 tamu</small>
+                    </div>
+                </article>
+
+                <article class="doa-wish-card">
+                    <div class="doa-wish-avatar doa-avatar-orange">S</div>
+                    <div class="doa-wish-content">
+                        <div class="doa-wish-head">
+                            <strong>Siti</strong>
+                            <span class="doa-wish-status">Hadir</span>
+                        </div>
+                        <p>Barakallahu lakuma. Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. 🌷</p>
+                        <small>1 tamu</small>
+                    </div>
+                </article>
+
+                <div class="doa-empty" id="doaEmptyMessage" style="display:none">Belum ada pesan baru.</div>
+            </div>
+
+            <button class="doa-write-button" id="openDoaButton" type="button">
+                <span>✎</span>
+                TULIS UCAPAN
+            </button>
+
+            <div class="doa-note">dengan cinta, kami menunggu doa baikmu</div>
+        </div>
+    </section>
+
+
+
+    <!-- =================================================
+         SAMPAI KETEMU
+    ================================================== -->
+
+    <section
+        class="section ketemu-section"
+        id="hadir"
+    >
+
+        <!-- DEKORASI BACKGROUND -->
+        <div class="ketemu-deco ketemu-flower ketemu-flower-1">✿</div>
+        <div class="ketemu-deco ketemu-flower ketemu-flower-2">✿</div>
+        <div class="ketemu-deco ketemu-sparkle ketemu-sparkle-1">✦</div>
+        <div class="ketemu-deco ketemu-sparkle ketemu-sparkle-2">✦</div>
+        <div class="ketemu-orb ketemu-orb-1"></div>
+        <div class="ketemu-orb ketemu-orb-2"></div>
+
+        <div class="ketemu-content">
+            <div class="ketemu-small-title">hari yang kami tunggu</div>
+
+            <h2 class="ketemu-title">
+                SAMPAI KETEMU
+                <span>TINGGAL HITUNG HARI ♡</span>
+            </h2>
+
+            <p class="ketemu-subtitle">
+                Biar kursi &amp; porsimu kami siapkan, kabari
+                kehadiranmu ya!
+            </p>
+
+            <div class="countdown-box" aria-label="Hitung mundur menuju hari pernikahan">
+                <div class="countdown-item">
+                    <strong id="countDays">00</strong>
+                    <span>hari</span>
+                </div>
+                <div class="countdown-item">
+                    <strong id="countHours">00</strong>
+                    <span>jam</span>
+                </div>
+                <div class="countdown-item">
+                    <strong id="countMinutes">00</strong>
+                    <span>menit</span>
+                </div>
+                <div class="countdown-item">
+                    <strong id="countSeconds">00</strong>
+                    <span>detik</span>
+                </div>
+            </div>
+
+            <div class="ketemu-date-card">
+                <span class="ketemu-date-icon">♡</span>
+                <div>
+                    <strong>8 NOVEMBER 2026</strong>
+                    <small>Akad 08.00 WIB · Resepsi 11.00 WIB</small>
+                </div>
+            </div>
+
+            <div class="ketemu-wave">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+
+            <p class="ketemu-message">
+                Kehadiranmu, tawamu, dan doa-doa baik adalah hadiah terbaik.
+                Sampai ketemu di hari bahagia kami! ✨
+            </p>
+
+            <div class="ketemu-names">
+                KANAYA <span>&amp;</span> BIMASENA
+            </div>
+
+            <div class="ketemu-love">♥</div>
+        </div>
+
+    </section>
+
+    <!-- WATERMARK PEMBUAT UNDANGAN -->
+<div class="creator-watermark">
+    <div class="creator-text">
+        Made with love by <span>Pakseh</span>
+    </div>
+
+    <div class="creator-links">
+
+        <!-- WhatsApp -->
+        <a
+            href="https://wa.me/6285156028912"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="creator-link whatsapp-link"
+            aria-label="WhatsApp"
+        >
+            <svg viewBox="0 0 24 24">
+                <path d="M20.52 3.48A11.84 11.84 0 0 0 12.08 0C5.52 0 .18 5.34.18 11.9c0 2.1.55 4.15 1.6 5.96L.08 24l6.28-1.65a11.88 11.88 0 0 0 5.72 1.46h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.47-8.43ZM12.09 21.8a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.73.98 1-3.64-.23-.37a9.87 9.87 0 1 1 8.35 4.62Zm5.42-7.39c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.64-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.09 4.49.71.31 1.27.5 1.7.64.71.23 1.35.2 1.86.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/>
+            </svg>
+        </a>
+
+        <!-- Website -->
+        <a
+            href="https://pakseh.web.id"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="creator-link website-link"
+            aria-label="Website"
+        >
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9.5"></circle>
+                <path d="M2.5 12h19"></path>
+                <path d="M12 2.5c2.7 2.55 4.05 5.72 4.05 9.5S14.7 18.95 12 21.5c-2.7-2.55-4.05-5.72-4.05-9.5S9.3 5.05 12 2.5Z"></path>
+            </svg>
+        </a>
+
+    </div>
+</div>
+
+</div>
+
+
+
+<!-- POPUP TULIS UCAPAN -->
+<div class="doa-modal" id="doaModal" aria-hidden="true">
+    <div class="doa-modal-overlay" id="doaModalOverlay"></div>
+    <div class="doa-modal-box" role="dialog" aria-modal="true" aria-labelledby="doaModalTitle">
+        <button class="doa-modal-close" id="closeDoaModal" type="button" aria-label="Tutup">×</button>
+        <div class="doa-modal-flower">✿</div>
+        <div class="doa-modal-small">untuk kedua mempelai</div>
+        <h3 class="doa-modal-title" id="doaModalTitle">Tulis Ucapan</h3>
+        <p class="doa-modal-subtitle">Sampaikan doa dan pesan terbaikmu untuk kami.</p>
+
+        <form id="doaForm" class="doa-form">
+            <label>
+                <span>Nama</span>
+                <input id="doaName" name="nama" type="text" maxlength="50" placeholder="Nama kamu" autocomplete="name" required>
+            </label>
+
+            <label>
+                <span>Kehadiran</span>
+                <select id="doaAttendance" name="kehadiran">
+                    <option value="Hadir">Hadir</option>
+                    <option value="Tidak Hadir">Tidak Hadir</option>
+                    <option value="Masih Ragu">Masih Ragu</option>
+                </select>
+            </label>
+
+            <label>
+                <span>Jumlah Tamu</span>
+                <select id="doaGuests" name="jumlah">
+                    <option value="1">1 Tamu</option>
+                    <option value="2">2 Tamu</option>
+                    <option value="3">3 Tamu</option>
+                    <option value="4">4 Tamu</option>
+                </select>
+            </label>
+
+            <label>
+                <span>Pesan &amp; Doa</span>
+                <textarea id="doaMessage" name="pesan" rows="5" maxlength="300" placeholder="Tulis ucapan dan doa terbaikmu..." required></textarea>
+                <small class="doa-counter" id="doaCharCount">0/300</small>
+            </label>
+
+            <button class="doa-submit-button" type="submit">
+                KIRIM UCAPAN <span>♥</span>
+            </button>
+            <div class="doa-success" id="doaSuccess">✓ Ucapan berhasil ditambahkan ❤️</div>
+        </form>
+    </div>
+</div>
+
+
 <!-- =================================================
      POPUP KADO
 ================================================== -->
@@ -1333,51 +1470,6 @@
 </div>
 
 
-    <!-- =================================================
-         DOA
-    ================================================== -->
-
-    <section
-        class="section placeholder-section"
-        id="doa"
-    >
-
-        <h2 class="section-title">
-            DOA
-        </h2>
-
-        <p>
-            Halaman doa akan kita buat berikutnya ❤️
-        </p>
-
-    </section>
-
-
-
-    <!-- =================================================
-         HADIR
-    ================================================== -->
-
-    <section
-        class="section placeholder-section"
-        id="hadir"
-    >
-
-        <h2 class="section-title">
-            HADIR
-        </h2>
-
-        <p>
-            Halaman konfirmasi kehadiran akan kita buat berikutnya ❤️
-        </p>
-
-    </section>
-
-
-</div>
-
-
-
 <!-- =====================================================
      TOMBOL MUSIK
 ===================================================== -->
@@ -1477,11 +1569,11 @@
     >
 
         <span class="nav-icon">
-            ♡
+            ✿
         </span>
 
         <span>
-            HADIR
+            KETEMU
         </span>
 
     </a>
@@ -1494,6 +1586,97 @@
 <!-- =====================================================
      JAVASCRIPT
 ===================================================== -->
+
+
+<script>
+/* =====================================================
+   POPUP KIRIM KADO — FINAL CONTROLLER
+   Tidak bergantung pada posisi .invitation
+===================================================== */
+(function () {
+    function initGiftModal() {
+        const modal = document.getElementById('giftModal');
+        const openBtn = document.getElementById('openGiftButton');
+        const closeBtn = document.getElementById('closeGiftModal');
+        const overlay = document.getElementById('giftModalOverlay');
+        const copyBtn = document.getElementById('copyRekeningButton');
+        const rekening = document.getElementById('rekeningNumber');
+        const success = document.getElementById('copySuccess');
+
+        if (!modal || !openBtn || !closeBtn || !overlay) return;
+
+        function openModal(e) {
+            if (e) e.preventDefault();
+            modal.classList.add('show');
+            document.body.classList.add('gift-modal-open');
+            closeBtn.focus({ preventScroll: true });
+        }
+
+        function closeModal() {
+            modal.classList.remove('show');
+            document.body.classList.remove('gift-modal-open');
+        }
+
+        openBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+
+        if (copyBtn && rekening) {
+            copyBtn.addEventListener('click', async function () {
+                const text = rekening.textContent.trim().replace(/\s+/g, '');
+                let copied = false;
+
+                try {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        await navigator.clipboard.writeText(text);
+                        copied = true;
+                    }
+                } catch (_) {}
+
+                if (!copied) {
+                    const area = document.createElement('textarea');
+                    area.value = text;
+                    area.setAttribute('readonly', '');
+                    area.style.position = 'fixed';
+                    area.style.opacity = '0';
+                    document.body.appendChild(area);
+                    area.select();
+                    try {
+                        copied = document.execCommand('copy');
+                    } catch (_) {}
+                    area.remove();
+                }
+
+                if (copied && success) {
+                    success.classList.add('show');
+                    copyBtn.classList.add('copied');
+                    copyBtn.innerHTML = '<span>✓</span> NOMOR BERHASIL DISALIN';
+
+                    clearTimeout(window.__giftCopyTimer);
+                    window.__giftCopyTimer = setTimeout(function () {
+                        success.classList.remove('show');
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = '<span>⧉</span> SALIN NOMOR REKENING';
+                    }, 2200);
+                }
+            });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initGiftModal);
+    } else {
+        initGiftModal();
+    }
+})();
+</script>
+
 
 <script src="script.js"></script>
 
