@@ -13,6 +13,8 @@
         initMusic();
         initCalendar();
         initGallery();
+        initGalleryLightbox();
+        initLetterReveal();
         initNavigation();
         initDoa();
         initCountdown();
@@ -183,6 +185,140 @@
     }
 
     /* =====================================================
+       GALLERY LIGHTBOX — klik foto untuk preview besar
+    ===================================================== */
+    function initGalleryLightbox() {
+        const modal = $('galleryLightbox');
+        const image = $('galleryLightboxImage');
+
+        // Pindahkan lightbox langsung ke <body>.
+        // Ini mencegah position:fixed terpengaruh oleh section/ancestor
+        // yang memakai transform, sehingga preview selalu tepat di viewport HP.
+        if (modal && modal.parentElement !== document.body) {
+            document.body.appendChild(modal);
+        }
+        const counter = $('galleryLightboxCounter');
+        if (!modal || !image) return;
+
+        const items = () => qsa('.gallery-slide img, .gallery-more-item img')
+            .filter(img => img && img.getAttribute('src'));
+        let current = 0;
+
+        function open(src) {
+            const list = items();
+            const index = list.findIndex(img => img.getAttribute('src') === src);
+            current = index >= 0 ? index : 0;
+            const target = list[current];
+            if (!target) return;
+            image.src = target.currentSrc || target.src;
+            image.alt = target.alt || 'Preview foto';
+            if (counter) counter.textContent = `${current + 1} / ${list.length}`;
+            modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('gallery-lock');
+        }
+
+        function close() {
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('gallery-lock');
+            setTimeout(() => { if (!modal.classList.contains('show')) image.removeAttribute('src'); }, 250);
+        }
+
+        function move(step) {
+            const list = items();
+            if (!list.length) return;
+            current = (current + step + list.length) % list.length;
+            const target = list[current];
+            image.src = target.currentSrc || target.src;
+            image.alt = target.alt || 'Preview foto';
+            if (counter) counter.textContent = `${current + 1} / ${list.length}`;
+        }
+
+        qsa('.gallery-slide img, .gallery-more-item').forEach(el => {
+            el.addEventListener('click', () => {
+                const src = el.tagName === 'IMG' ? el.getAttribute('src') : el.dataset.galleryPreview;
+                if (src) open(src);
+            });
+        });
+
+        const closeButton = $('galleryLightboxClose');
+        const prev = $('galleryLightboxPrev');
+        const next = $('galleryLightboxNext');
+        if (closeButton) closeButton.addEventListener('click', close);
+        if (prev) prev.addEventListener('click', () => move(-1));
+        if (next) next.addEventListener('click', () => move(1));
+
+        modal.addEventListener('click', e => {
+            if (e.target === modal) close();
+        });
+
+        document.addEventListener('keydown', e => {
+            if (!modal.classList.contains('show')) return;
+            if (e.key === 'Escape') close();
+            if (e.key === 'ArrowLeft') move(-1);
+            if (e.key === 'ArrowRight') move(1);
+        });
+
+        let startX = 0;
+        modal.addEventListener('touchstart', e => {
+            startX = e.changedTouches[0].clientX;
+        }, { passive: true });
+        modal.addEventListener('touchend', e => {
+            const dx = e.changedTouches[0].clientX - startX;
+            if (Math.abs(dx) > 45) move(dx < 0 ? 1 : -1);
+        }, { passive: true });
+    }
+
+    /* =====================================================
+       LETTER-BY-LETTER TEXT REVEAL
+       Teks muncul seperti sedang ditulis, per huruf.
+    ===================================================== */
+    function initLetterReveal() {
+        const targets = qsa('.letter-reveal');
+        if (!targets.length) return;
+
+        targets.forEach(el => {
+            if (el.dataset.lettersReady === 'true') return;
+            const text = el.textContent.trim();
+            if (!text) return;
+            el.textContent = '';
+            [...text].forEach((char, index) => {
+                const span = document.createElement('span');
+                span.className = 'typing-letter';
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                span.style.setProperty('--letter-index', index);
+                el.appendChild(span);
+            });
+            el.style.setProperty('--letter-count', text.length);
+            el.dataset.lettersReady = 'true';
+        });
+
+        const trigger = el => el.classList.add('is-typing');
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        trigger(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: .15, rootMargin: '0px 0px -5% 0px' });
+            targets.forEach(el => observer.observe(el));
+        } else {
+            targets.forEach(trigger);
+        }
+
+        // Jika elemen sudah terlihat ketika cover dibuka, jalankan juga.
+        setTimeout(() => {
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+            targets.forEach(el => {
+                if (el.getBoundingClientRect().top < vh * .95) trigger(el);
+            });
+        }, 180);
+    }
+
+    /* =====================================================
        BOTTOM NAVIGATION
     ===================================================== */
     function initNavigation() {
@@ -228,6 +364,11 @@
             '.guest-home > *',
             '.acara-content > *',
             '.agenda-section > *',
+            '.couple-stack-section > .couple-section-title',
+            '.couple-stack-section > .couple-person-block',
+            '.couple-stack-section .person-parent',
+            '.couple-stack-section .person-address',
+            '.couple-stack-section .instagram-button',
             '.gallery-section > .gallery-title',
             '.gallery-section > .gallery-subtitle',
             '.gallery-section > .gallery-slider',
