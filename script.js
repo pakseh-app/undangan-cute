@@ -1,5 +1,5 @@
 /* =====================================================
-   WULAN & PAKSEH — MAIN CONTROLLER
+   juliete & romeo — MAIN CONTROLLER
 ===================================================== */
 (function () {
     'use strict';
@@ -275,26 +275,89 @@
        Teks muncul seperti sedang ditulis, per huruf.
     ===================================================== */
     function initLetterReveal() {
-        const targets = qsa('.letter-reveal');
-        if (!targets.length) return;
+        /*
+           GLOBAL LETTER REVEAL — V12
+           Semua teks dari atas sampai bawah dianimasikan per huruf.
+           Kita hanya membungkus TEXT NODE langsung, sehingga icon/HTML
+           di dalam tombol, navbar, kartu, dll. tetap utuh.
+        */
+        const root = document.querySelector('.invitation') || document.body;
+        const skipTags = new Set([
+            'SCRIPT','STYLE','NOSCRIPT','SVG','PATH','IMG','INPUT','TEXTAREA',
+            'SELECT','OPTION','VIDEO','AUDIO','CANVAS','PRE','CODE'
+        ]);
+        const skipClass = /(typing-letter|icon|fa-|material-icons|lucide|emoji|sparkle|heart-icon|nav-icon|gallery-dot|gallery-arrow)/i;
+        const processed = [];
 
-        targets.forEach(el => {
-            if (el.dataset.lettersReady === 'true') return;
-            const text = el.textContent.trim();
-            if (!text) return;
-            el.textContent = '';
-            [...text].forEach((char, index) => {
+        const hasMeaningfulText = el => {
+            let text = '';
+            el.childNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) text += node.nodeValue || '';
+            });
+            return text.replace(/\s+/g, ' ').trim();
+        };
+
+        const wrapTextNode = (node, parent) => {
+            const raw = node.nodeValue || '';
+            if (!raw.trim()) return false;
+
+            const fragment = document.createDocumentFragment();
+            let letterIndex = 0;
+
+            [...raw].forEach(char => {
+                if (/\s/.test(char)) {
+                    fragment.appendChild(document.createTextNode(char));
+                    return;
+                }
                 const span = document.createElement('span');
                 span.className = 'typing-letter';
-                span.textContent = char === ' ' ? '\u00A0' : char;
-                span.style.setProperty('--letter-index', index);
-                el.appendChild(span);
+                span.textContent = char;
+                span.style.setProperty('--letter-index', letterIndex++);
+                fragment.appendChild(span);
             });
-            el.style.setProperty('--letter-count', text.length);
-            el.dataset.lettersReady = 'true';
-        });
 
-        const trigger = el => el.classList.add('is-typing');
+            parent.replaceChild(fragment, node);
+            return letterIndex > 0;
+        };
+
+        const walk = el => {
+            if (!(el instanceof Element)) return;
+            if (skipTags.has(el.tagName)) return;
+            if (skipClass.test(el.className || '')) return;
+            if (el.dataset.lettersReady === 'true') return;
+
+            const directTextNodes = [...el.childNodes].filter(node =>
+                node.nodeType === Node.TEXT_NODE && (node.nodeValue || '').trim()
+            );
+
+            let letterCount = 0;
+            directTextNodes.forEach(node => {
+                const before = node.nodeValue || '';
+                if (wrapTextNode(node, el)) {
+                    letterCount += [...before].filter(ch => !/\s/.test(ch)).length;
+                }
+            });
+
+            if (letterCount > 0) {
+                const speed = letterCount <= 18 ? 0.28 : letterCount <= 40 ? 0.19 : 0.115;
+                el.style.setProperty('--letter-speed', `${speed}s`);
+                el.style.setProperty('--letter-count', letterCount);
+                el.dataset.lettersReady = 'true';
+                el.classList.add('letter-reveal');
+                processed.push(el);
+            }
+
+            // Lanjutkan ke elemen anak agar teks di dalam kartu/komponen
+            // yang memiliki icon atau dekorasi juga tetap dianimasikan.
+            [...el.children].forEach(walk);
+        };
+
+        walk(root);
+
+        const trigger = el => {
+            if (!el.classList.contains('is-typing')) el.classList.add('is-typing');
+        };
+
         if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -303,19 +366,20 @@
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: .15, rootMargin: '0px 0px -5% 0px' });
-            targets.forEach(el => observer.observe(el));
+            }, { threshold: .08, rootMargin: '0px 0px -6% 0px' });
+            processed.forEach(el => observer.observe(el));
         } else {
-            targets.forEach(trigger);
+            processed.forEach(trigger);
         }
 
-        // Jika elemen sudah terlihat ketika cover dibuka, jalankan juga.
+        // Jalankan elemen yang sudah terlihat ketika undangan dibuka.
         setTimeout(() => {
             const vh = window.innerHeight || document.documentElement.clientHeight;
-            targets.forEach(el => {
-                if (el.getBoundingClientRect().top < vh * .95) trigger(el);
+            processed.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < vh * .98 && rect.bottom > 0) trigger(el);
             });
-        }, 180);
+        }, 220);
     }
 
     /* =====================================================

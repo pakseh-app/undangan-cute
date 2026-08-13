@@ -871,39 +871,6 @@ a {
 }
 
 
-.floating-heart {
-
-    position: absolute;
-
-    right: 35px;
-
-    bottom: 170px;
-
-    width: 60px;
-
-    height: 60px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: #e90070;
-
-    color: white;
-
-    font-size: 26px;
-
-    box-shadow: 0 8px 25px rgba(233,0,112,.22);
-
-    animation:
-        heartFloat 3s ease-in-out infinite,
-        heartBeat 2s infinite;
-}
-
 
 /* =====================================================
    PLACEHOLDER
@@ -1729,7 +1696,7 @@ body {
 }
 
 
-/* WULAN dan PAKSEH */
+/* juliete dan romeo */
 
 .couple-photo-name span {
 
@@ -2197,37 +2164,7 @@ body {
 }
 
 
-.guest-floating-heart {
-    position: absolute;
 
-    right: 18px;
-
-    bottom: 15px;
-
-    width: 58px;
-    height: 58px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background: #e90070;
-
-    color: white;
-
-    border-radius: 50%;
-
-    font-size: 25px;
-
-    box-shadow:
-        0 8px 22px
-        rgba(233,0,112,.25);
-
-    animation:
-        guestHeartFloat 3s ease-in-out infinite;
-
-}
 
 
 @keyframes guestHeartFloat {
@@ -7898,7 +7835,7 @@ body.cover-active { position: relative; }
     .ketemu-date-card { width: 100%; max-width: 330px; }
 
     .creator-watermark {
-        padding: 5px 16px 58px;
+        padding: 5px 16px 85px;
     }
     .creator-text {
         font-size: 9px;
@@ -9138,8 +9075,22 @@ body.cover-active { position: relative; }
 /* =====================================================
    EFEK TEKS PER HURUF — seperti tulisan sedang masuk
 ===================================================== */
-.letter-reveal {
-    --letter-speed: 0.055s;
+.letter-reveal,
+.section-title,
+.orange-title,
+.acara-title,
+.event-title,
+.agenda-title,
+.agenda-name,
+.dresscode-title,
+.dress-color-title,
+.gift-title,
+.doa-small-title,
+.doa-title,
+.ketemu-small-title,
+.simple-event-day,
+.simple-event-month {
+    --letter-speed: 0.18s;
 }
 
 .letter-reveal .typing-letter {
@@ -9150,8 +9101,8 @@ body.cover-active { position: relative; }
     will-change: transform, opacity, filter;
 }
 
-.letter-reveal.is-typing .typing-letter {
-    animation: typingLetterIn .62s cubic-bezier(.22,1,.36,1) forwards;
+.is-typing > .typing-letter {
+    animation: typingLetterIn .92s cubic-bezier(.22,1,.36,1) forwards;
     animation-delay: calc(var(--letter-index) * var(--letter-speed));
 }
 
@@ -9182,13 +9133,42 @@ body.cover-active { position: relative; }
     margin: 8px auto 0;
     border-radius: 99px;
     background: linear-gradient(90deg, #e90070, #f39a0a);
-    animation: typingUnderline .8s cubic-bezier(.22,1,.36,1) forwards;
+    animation: typingUnderline 1.05s cubic-bezier(.22,1,.36,1) forwards;
     animation-delay: calc(var(--letter-count) * var(--letter-speed) + .1s);
 }
 
 @keyframes typingUnderline {
     from { width: 0; opacity: 0; }
     to { width: min(130px, 70%); opacity: .75; }
+}
+
+
+/* Versi lebih lambat: setiap huruf masuk satu per satu, dengan sedikit jeda
+   sehingga pengunjung benar-benar sempat melihat proses tulisnya. */
+.typing-letter {
+    backface-visibility: hidden;
+}
+
+/* FIX MOBILE TEXT WRAPPING
+   Spasi sekarang dipertahankan sebagai text node oleh JS, sehingga paragraf
+   tetap boleh turun baris normal. Aturan ini mencegah efek huruf membuat
+   kontainer melebar ke kanan saat animasi berlangsung. */
+.letter-reveal,
+.letter-reveal p,
+.guest-description,
+.agenda-quote p,
+.ketemu-message,
+.doa-subtitle,
+.doa-note,
+.gift-modal-thanks {
+    white-space: normal !important;
+    overflow-wrap: break-word;
+    word-break: normal;
+    max-width: 100%;
+}
+
+.typing-letter {
+    max-width: 100%;
 }
 
 /* =====================================================
@@ -9481,5 +9461,170 @@ body.gallery-lock {
         height: 40px !important;
         font-size: 31px !important;
         line-height: 36px !important;
+    }
+}
+
+/* =====================================================
+   V12 — GLOBAL TEXT TYPEWRITER
+   Semua teks masuk seperti sedang ditulis, per huruf.
+===================================================== */
+.letter-reveal {
+    white-space: normal !important;
+    overflow-wrap: break-word;
+    word-break: normal;
+}
+
+.letter-reveal .typing-letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translate3d(0, 16px, 0) scale(.78) rotate(3deg);
+    filter: blur(4px);
+    will-change: transform, opacity, filter;
+    backface-visibility: hidden;
+}
+
+.letter-reveal.is-typing .typing-letter {
+    animation: v12LetterWrite .82s cubic-bezier(.22,1,.36,1) forwards;
+    animation-delay: calc(var(--letter-index) * var(--letter-speed));
+}
+
+@keyframes v12LetterWrite {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 16px, 0) scale(.78) rotate(3deg);
+        filter: blur(4px);
+    }
+    52% {
+        opacity: 1;
+        transform: translate3d(0, -3px, 0) scale(1.06) rotate(-1deg);
+        filter: blur(0);
+    }
+    78% {
+        transform: translate3d(0, 1px, 0) scale(.985) rotate(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1) rotate(0);
+        filter: blur(0);
+    }
+}
+
+/* =====================================================
+   V12 — GALERI AUTO SLIDE FADE HALUS
+   Tidak lagi zoom/rotate saat berganti foto.
+===================================================== */
+.gallery-track {
+    position: relative;
+    overflow: hidden !important;
+}
+
+.gallery-slide,
+.gallery-slide.active {
+    transition:
+        opacity 1.15s cubic-bezier(.4,0,.2,1),
+        transform 1.15s cubic-bezier(.4,0,.2,1) !important;
+}
+
+.gallery-slide {
+    opacity: 0 !important;
+    transform: scale(.995) !important;
+    visibility: hidden;
+    pointer-events: none !important;
+    z-index: 1;
+}
+
+.gallery-slide.active {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    visibility: visible;
+    pointer-events: auto !important;
+    z-index: 5;
+}
+
+/* Saat loading awal, hindari kilatan foto sebelum fade pertama. */
+.gallery-slide img {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .letter-reveal.is-typing .typing-letter,
+    .gallery-slide,
+    .gallery-slide.active {
+        animation: none !important;
+        transition: opacity .25s ease !important;
+        transform: none !important;
+    }
+}
+
+/* =====================================================
+   FINAL POLISH — TEXT & BUTTON
+===================================================== */
+
+/* Hilangkan garis otomatis dari efek ketik */
+.letter-reveal.is-typing::after {
+    display: none !important;
+}
+
+/* Animasi huruf lebih cepat tetapi tetap lembut */
+.letter-reveal,
+.section-title,
+.orange-title,
+.acara-title,
+.event-title,
+.agenda-title,
+.agenda-name,
+.dresscode-title,
+.dress-color-title,
+.gift-title,
+.doa-small-title,
+.doa-title,
+.ketemu-small-title,
+.simple-event-day,
+.simple-event-month {
+    --letter-speed: 0.075s !important;
+}
+
+.letter-reveal .typing-letter {
+    animation-duration: .68s !important;
+}
+
+/* =====================================================
+   TOMBOL TULIS UCAPAN — PRESISI
+===================================================== */
+
+.doa-write-button {
+    width: min(88%, 300px) !important;
+    min-height: 56px;
+    height: 56px;
+    margin: 22px auto 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 7px;
+    padding: 0 22px !important;
+
+    text-align: center !important;
+    line-height: 1 !important;
+}
+
+.doa-write-button span {
+    margin: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* HP */
+@media (max-width: 600px) {
+    .doa-write-button {
+        width: calc(100% - 28px) !important;
+        max-width: 300px;
+        height: 54px;
+        min-height: 54px;
+        font-size: 17px;
     }
 }
