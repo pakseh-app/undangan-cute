@@ -10,7 +10,7 @@ window.INVITATION_DATA = {
     // PENGANTIN
     // ─────────────────────────────────────────────────────
     bride: {
-        name: 'juliete',
+        name: 'juliet',
         parents: 'Putri dari Bpk. Hendra Prameswari & Ibu Ratna Dewi',
         address: 'Alamat kediaman mempelai',
         instagram: '#'
@@ -60,5 +60,5 @@ window.INVITATION_DATA = {
     // ─────────────────────────────────────────────────────
     // JUDUL BROWSER
     // ─────────────────────────────────────────────────────
-    pageTitle: 'juliete & romeo'
+    pageTitle: 'juliet & romeo'
 };

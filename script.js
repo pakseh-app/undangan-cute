@@ -1,5 +1,5 @@
 /* =====================================================
-   juliete & romeo — MAIN CONTROLLER
+   juliet & romeo — MAIN CONTROLLER
 ===================================================== */
 (function () {
     'use strict';
