@@ -1696,7 +1696,7 @@ body {
 }
 
 
-/* juliet dan romeo */
+/* juliete dan romeo */
 
 .couple-photo-name span {
 
@@ -9766,5 +9766,81 @@ body.gallery-lock {
     .ketemu-section {
         content-visibility: auto;
         contain-intrinsic-size: 700px;
+    }
+}
+
+
+/* =====================================================
+   GALLERY LOVE DECORATION — VARIASI WARNA
+   Love kecil menempel di bagian bawah bingkai foto.
+===================================================== */
+.gallery-frame-hearts {
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    width: 78px;
+    height: 38px;
+    transform: translateX(-50%);
+    z-index: 25;
+    pointer-events: none;
+}
+
+.gallery-heart {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    font-family: Arial, sans-serif;
+    font-size: 27px;
+    line-height: 1;
+    text-shadow: 0 2px 4px rgba(60, 35, 45, .12);
+    animation: galleryHeartFloat 3.2s ease-in-out infinite;
+}
+
+.gallery-heart:first-child {
+    left: 10px;
+    transform: rotate(-8deg);
+}
+
+.gallery-heart:last-child {
+    right: 10px;
+    transform: rotate(8deg);
+    animation-delay: -.9s;
+}
+
+.heart-pink   { color: #e96aa8; }
+.heart-green  { color: #9eaf73; }
+.heart-blue   { color: #72a9c9; }
+.heart-yellow { color: #f0ca67; }
+.heart-purple { color: #a78bc5; }
+.heart-orange { color: #f1a052; }
+
+@keyframes galleryHeartFloat {
+    0%, 100% { transform: translateY(0) rotate(-6deg) scale(1); }
+    50%      { transform: translateY(-3px) rotate(4deg) scale(1.06); }
+}
+
+.gallery-heart:last-child {
+    animation-name: galleryHeartFloatRight;
+}
+
+@keyframes galleryHeartFloatRight {
+    0%, 100% { transform: translateY(0) rotate(7deg) scale(1); }
+    50%      { transform: translateY(-3px) rotate(-4deg) scale(1.06); }
+}
+
+@media (max-width: 600px) {
+    .gallery-frame-hearts {
+        width: 72px;
+        bottom: -2px;
+    }
+
+    .gallery-heart {
+        width: 25px;
+        height: 25px;
+        font-size: 24px;
     }
 }

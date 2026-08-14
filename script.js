@@ -1,5 +1,5 @@
 /* =====================================================
-   juliet & romeo — MAIN CONTROLLER
+   juliete & romeo — MAIN CONTROLLER
 ===================================================== */
 (function () {
     'use strict';
@@ -9,6 +9,7 @@
     const qsa = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
     document.addEventListener('DOMContentLoaded', function () {
+        initInvitationData();
         initOpening();
         initMusic();
         initCalendar();
@@ -81,6 +82,109 @@
                 });
             }
         });
+    }
+
+    /* =====================================================
+       DATA UNDANGAN — SEMUA ISIAN UTAMA DIAMBIL DARI data.js
+       Jadi user cukup mengedit satu file.
+    ===================================================== */
+    function initInvitationData() {
+        const d = window.INVITATION_DATA;
+        if (!d) return;
+
+        const bride = d.bride || {};
+        const groom = d.groom || {};
+        const event = d.event || {};
+        const guest = d.guest || 'Tamu Tersayang';
+        const gift = d.gift || {};
+
+        // Judul browser
+        if (d.pageTitle) document.title = d.pageTitle;
+
+        // Cover
+        const coverNames = qsa('.couple-name span');
+        if (coverNames[0] && bride.name) coverNames[0].textContent = bride.name;
+        if (coverNames[1] && groom.name) coverNames[1].textContent = groom.name;
+        const guestName = qs('.guest-name');
+        if (guestName) guestName.textContent = guest;
+
+        // Foto + nama di halaman home
+        const homeCaptions = qsa('.polaroid-caption');
+        const homeNames = qsa('.home-couple-names span');
+        if (homeCaptions[0] && groom.name) homeCaptions[0].textContent = groom.name;
+        if (homeCaptions[1] && bride.name) homeCaptions[1].textContent = bride.name;
+        if (homeNames[0] && bride.name) homeNames[0].textContent = bride.name;
+        if (homeNames[1] && groom.name) homeNames[1].textContent = groom.name;
+
+        // Dua manusianya
+        const brideCard = qs('.bride-card');
+        const groomCard = qs('.groom-card');
+        if (brideCard) {
+            const name = qs('.person-polaroid-name', brideCard);
+            const parent = qs('.person-parent', brideCard);
+            const address = qs('.person-address', brideCard);
+            const ig = qs('.instagram-button', brideCard);
+            const img = qs('img', brideCard);
+            if (name && bride.name) name.textContent = bride.name;
+            if (parent && bride.parents) parent.textContent = bride.parents;
+            if (address && bride.address) address.textContent = bride.address;
+            if (ig && bride.instagram) ig.href = bride.instagram;
+            if (img && bride.name) img.alt = 'Foto ' + bride.name;
+        }
+        if (groomCard) {
+            const name = qs('.person-polaroid-name', groomCard);
+            const parent = qs('.person-parent', groomCard);
+            const address = qs('.person-address', groomCard);
+            const ig = qs('.instagram-button', groomCard);
+            const img = qs('img', groomCard);
+            if (name && groom.name) name.textContent = groom.name;
+            if (parent && groom.parents) parent.textContent = groom.parents;
+            if (address && groom.address) address.textContent = groom.address;
+            if (ig && groom.instagram) ig.href = groom.instagram;
+            if (img && groom.name) img.alt = 'Foto ' + groom.name;
+        }
+
+        // Tanggal di berbagai bagian halaman
+        const weddingDate = $('homeWeddingDate');
+        if (weddingDate && event.weekday && event.day && event.monthYear) {
+            weddingDate.textContent = `${event.weekday}, ${event.day} ${event.monthYear}`;
+        }
+        const dateDay = qs('.simple-event-day');
+        const dateNumber = qs('.simple-event-number');
+        const dateMonth = qs('.simple-event-month');
+        if (dateDay && event.weekday) dateDay.textContent = event.weekday;
+        if (dateNumber && event.day) dateNumber.textContent = event.day;
+        if (dateMonth && event.monthYear) dateMonth.textContent = event.monthYear;
+
+        // Akad & resepsi
+        const eventTitles = qsa('.event-title');
+        if (eventTitles[0]) eventTitles[0].textContent = `AKAD NIKAH · ${event.akadTime || ''}`.trim();
+        if (eventTitles[1]) eventTitles[1].textContent = `RESEPSI · ${event.receptionTime || ''}`.trim();
+        qsa('.event-place').forEach(el => { if (event.venue) el.textContent = event.venue; });
+        qsa('.event-address').forEach(el => { if (event.address) el.textContent = event.address; });
+        qsa('.event-map').forEach(el => { if (event.mapUrl) el.href = event.mapUrl; });
+
+        // Ketemu / countdown card
+        const ketemuDate = qs('.ketemu-date-card strong');
+        const ketemuTime = qs('.ketemu-date-card small');
+        const ketemuNames = qs('.ketemu-names');
+        if (ketemuDate && event.fullDate) ketemuDate.textContent = event.fullDate;
+        if (ketemuTime) ketemuTime.textContent = `Akad ${event.akadTime || ''} · Resepsi ${event.receptionTime || ''}`;
+        if (ketemuNames && bride.name && groom.name) {
+            ketemuNames.innerHTML = `${bride.name} <span>&amp;</span> ${groom.name}`;
+        }
+
+        // Kado / rekening
+        const rekening = $('rekeningNumber');
+        const rekeningOwner = qs('.rekening-owner');
+        const atmNumber = qs('.atm-number');
+        const atmOwner = qs('.atm-bottom strong');
+        const giftBank = qs('.atm-logo');
+        if (rekening && gift.accountNumber) rekening.textContent = gift.accountNumber;
+        if (rekeningOwner && gift.owner) rekeningOwner.textContent = gift.owner;
+        if (atmNumber && gift.accountNumber) atmNumber.textContent = gift.accountNumber.replace(/\s+/g, '').replace(/(.{4})/g, '$1 ').trim();
+        if (atmOwner && gift.owner) atmOwner.textContent = gift.owner;
+        if (giftBank && gift.bank) giftBank.textContent = gift.bank;
     }
 
     /* =====================================================
@@ -539,7 +643,7 @@
         const seconds = $('countSeconds');
         if (!days || !hours || !minutes || !seconds) return;
 
-        const targetTime = new Date('2026-11-08T08:00:00+07:00').getTime();
+        const targetTime = new Date((window.INVITATION_DATA?.event?.iso) || '2026-11-08T08:00:00+07:00').getTime();
 
         function pad(value) {
             return String(Math.max(0, value)).padStart(2, '0');

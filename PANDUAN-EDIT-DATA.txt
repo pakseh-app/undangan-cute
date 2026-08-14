@@ -1,0 +1,55 @@
+JALAN PINTAS EDIT DATA UNDANGAN
+================================
+
+Mulai sekarang, data utama undangan cukup diedit di:
+
+    data.js
+
+Tidak perlu mencari nama, alamat, tanggal, atau rekening satu per satu di index.html.
+
+CONTOH:
+
+1. Ganti nama pengantin
+   bride.name = 'Nama Pengantin Wanita'
+   groom.name = 'Nama Pengantin Pria'
+
+2. Ganti nama orang tua
+   bride.parents = 'Putri dari Bpk. Nama Ayah & Ibu Nama Ibu'
+   groom.parents = 'Putra dari Bpk. Nama Ayah & Ibu Nama Ibu'
+
+3. Ganti alamat
+   bride.address = 'Alamat lengkap pengantin wanita'
+   groom.address = 'Alamat lengkap pengantin pria'
+
+4. Ganti Instagram
+   bride.instagram = 'https://instagram.com/username'
+   groom.instagram = 'https://instagram.com/username'
+
+5. Ganti tanggal dan waktu
+   event.weekday = 'MINGGU'
+   event.day = '8'
+   event.monthYear = 'NOVEMBER 2026'
+   event.fullDate = '8 NOVEMBER 2026'
+   event.iso = '2026-11-08T08:00:00+07:00'
+   event.akadTime = '08.00 WIB'
+   event.receptionTime = '11.00 WIB'
+
+   Penting: nilai event.iso dipakai untuk countdown.
+
+6. Ganti lokasi
+   event.venue = 'Nama Gedung / Ballroom'
+   event.address = 'Alamat acara'
+   event.mapUrl = 'https://www.google.com/maps/...'
+
+7. Ganti rekening kado
+   gift.bank = 'BANK'
+   gift.accountNumber = '1234567890123456'
+   gift.owner = 'Nama Pemilik Rekening'
+
+Setelah mengedit data.js:
+
+    git add .
+    git commit -m "Update data undangan"
+    git push origin main
+
+File index.html, style.css, dan script.js tidak perlu dibongkar hanya untuk mengganti data.
