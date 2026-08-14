@@ -95,7 +95,12 @@
         const bride = d.bride || {};
         const groom = d.groom || {};
         const event = d.event || {};
-        const guest = d.guest || 'Tamu Tersayang';
+        // Nama tamu dari URL. Mendukung dua format:
+        // ?to=Wulan  (format yang disarankan)
+        // ?=Wulan    (format singkat)
+        const params = new URLSearchParams(window.location.search);
+        const guestFromUrl = (params.get('to') || params.get('') || '').trim();
+        const guest = guestFromUrl || d.guest || 'Tamu Tersayang';
         const gift = d.gift || {};
 
         // Judul browser

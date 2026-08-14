@@ -40,12 +40,12 @@ window.INVITATION_DATA = {
     akadTime: '08.00 WIB',
     akadVenue: 'KUA Kecamatan Bringin',
     akadAddress: 'Jl. Raya Bringin No. 10',
-    akadMapUrl: 'https://maps.app.goo.gl/qctJjwK9xsxvXuQGA',
+    akadMapUrl: 'https://maps.app.goo.gl/fNXv2ruhmdTURJ1F9',
 
     receptionTime: '11.00 WIB',
     receptionVenue: 'Rumah Mempelai Wanita',
     receptionAddress: 'Desa Bringin, Kecamatan Bringin',
-    receptionMapUrl: 'https://maps.app.goo.gl/ovxYERmpKweTagQS7'
+    receptionMapUrl: 'https://maps.app.goo.gl/LVRTDLqGkun1YHWHA'
 },
 
     // ─────────────────────────────────────────────────────
