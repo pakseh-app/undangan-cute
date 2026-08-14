@@ -160,9 +160,17 @@
         const eventTitles = qsa('.event-title');
         if (eventTitles[0]) eventTitles[0].textContent = `AKAD NIKAH · ${event.akadTime || ''}`.trim();
         if (eventTitles[1]) eventTitles[1].textContent = `RESEPSI · ${event.receptionTime || ''}`.trim();
-        qsa('.event-place').forEach(el => { if (event.venue) el.textContent = event.venue; });
-        qsa('.event-address').forEach(el => { if (event.address) el.textContent = event.address; });
-        qsa('.event-map').forEach(el => { if (event.mapUrl) el.href = event.mapUrl; });
+        const eventPlaces = qsa('.event-place');
+        if (eventPlaces[0] && event.akadVenue) eventPlaces[0].textContent = event.akadVenue;
+        if (eventPlaces[1] && event.receptionVenue) eventPlaces[1].textContent = event.receptionVenue;
+
+        const eventAddresses = qsa('.event-address');
+        if (eventAddresses[0] && event.akadAddress) eventAddresses[0].textContent = event.akadAddress;
+        if (eventAddresses[1] && event.receptionAddress) eventAddresses[1].textContent = event.receptionAddress;
+
+        const eventMaps = qsa('.event-map');
+        if (eventMaps[0] && event.akadMapUrl) eventMaps[0].href = event.akadMapUrl;
+        if (eventMaps[1] && event.receptionMapUrl) eventMaps[1].href = event.receptionMapUrl;
 
         // Ketemu / countdown card
         const ketemuDate = qs('.ketemu-date-card strong');

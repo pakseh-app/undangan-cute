@@ -32,19 +32,21 @@ window.INVITATION_DATA = {
     // ACARA
     // ─────────────────────────────────────────────────────
     event: {
-        weekday: 'SENIN',
-        day: '17',
-        monthYear: 'AGUSTUS 2026',
-        fullDate: '17 AGUSTUS 2026',
-        iso: '2026-08-17T08:00:00+07:00',
+    weekday: 'SENIN',
+    day: '17',
+    monthYear: 'AGUSTUS 2026',
+    fullDate: '17 AGUSTUS 2026',
 
-        akadTime: '08.00 WIB',
-        receptionTime: '11.00 WIB',
+    akadTime: '08.00 WIB',
+    akadVenue: 'KUA Kecamatan Bringin',
+    akadAddress: 'Jl. Raya Bringin No. 10',
+    akadMapUrl: 'https://maps.app.goo.gl/qctJjwK9xsxvXuQGA',
 
-        venue: 'BALAI DESA BRINGIN',
-        address: 'Depan stasiun Bringin',
-        mapUrl: 'https://maps.app.goo.gl/ML1J5vBrUcNaULVg9'
-    },
+    receptionTime: '11.00 WIB',
+    receptionVenue: 'Rumah Mempelai Wanita',
+    receptionAddress: 'Desa Bringin, Kecamatan Bringin',
+    receptionMapUrl: 'https://maps.app.goo.gl/ovxYERmpKweTagQS7'
+},
 
     // ─────────────────────────────────────────────────────
     // KADO / REKENING
