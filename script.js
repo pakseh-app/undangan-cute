@@ -1,5 +1,5 @@
 /* =====================================================
-   juliete & romeo — MAIN CONTROLLER
+   juliet & romeo — MAIN CONTROLLER
 ===================================================== */
 (function () {
     'use strict';
@@ -19,6 +19,23 @@
         initDoa();
         initCountdown();
     });
+
+    /* =====================================================
+       DEFERRED AUDIO — musik baru dimuat setelah pengguna membuka
+       undangan, sehingga halaman awal HP tidak perlu mengunduh MP3 7+ MB.
+    ===================================================== */
+    function ensureMusicSource() {
+        const music = $('backgroundMusic');
+        if (!music) return null;
+        if (!music.getAttribute('src')) {
+            const src = music.dataset.src;
+            if (src) {
+                music.src = src;
+                music.load();
+            }
+        }
+        return music;
+    }
 
     /* =====================================================
        COVER / OPEN INVITATION
@@ -54,7 +71,7 @@
             // Aktifkan observer setelah halaman undangan benar-benar terlihat.
             setTimeout(initScrollReveal, 80);
 
-            const music = $('backgroundMusic');
+            const music = ensureMusicSource();
             const musicButton = $('musicButton');
             if (music) {
                 music.play().then(function () {
@@ -76,6 +93,7 @@
 
         button.addEventListener('click', function () {
             if (music.paused) {
+                ensureMusicSource();
                 music.play().then(function () {
                     button.classList.add('playing');
                     button.textContent = '♫';
@@ -131,8 +149,9 @@
         slides.forEach((slide, index) => {
             const img = slide.querySelector('img');
             if (!img) return;
-            img.loading = 'eager';
+            img.loading = index === 0 ? 'eager' : 'lazy';
             img.decoding = 'async';
+            if (index > 0) img.fetchPriority = 'low';
             img.addEventListener('error', () => {
                 slide.classList.add('image-error');
                 slide.dataset.broken = 'true';
@@ -303,17 +322,30 @@
 
             const fragment = document.createDocumentFragment();
             let letterIndex = 0;
+            const tokens = raw.split(/(\s+)/);
 
-            [...raw].forEach(char => {
-                if (/\s/.test(char)) {
-                    fragment.appendChild(document.createTextNode(char));
+            tokens.forEach(token => {
+                if (/^\s+$/.test(token)) {
+                    fragment.appendChild(document.createTextNode(token));
                     return;
                 }
-                const span = document.createElement('span');
-                span.className = 'typing-letter';
-                span.textContent = char;
-                span.style.setProperty('--letter-index', letterIndex++);
-                fragment.appendChild(span);
+                if (!token) return;
+
+                // Satu kata tetap utuh saat wrapping, tetapi huruf di dalamnya
+                // tetap masuk satu per satu seperti efek mengetik.
+                const word = document.createElement('span');
+                word.className = 'typing-word';
+                word.style.whiteSpace = 'nowrap';
+
+                [...token].forEach(char => {
+                    const span = document.createElement('span');
+                    span.className = 'typing-letter';
+                    span.textContent = char;
+                    span.style.setProperty('--letter-index', letterIndex++);
+                    word.appendChild(span);
+                });
+
+                fragment.appendChild(word);
             });
 
             parent.replaceChild(fragment, node);

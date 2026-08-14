@@ -1696,7 +1696,7 @@ body {
 }
 
 
-/* juliete dan romeo */
+/* juliet dan romeo */
 
 .couple-photo-name span {
 
@@ -9626,5 +9626,145 @@ body.gallery-lock {
         height: 54px;
         min-height: 54px;
         font-size: 17px;
+    }
+}
+/* =====================================================
+   FINAL MOBILE FIX + PERFORMANCE PACK
+   - teks tidak lagi memotong kata di tengah
+   - konten tetap presisi di layar kecil
+   - beban awal HP diringankan tanpa menghilangkan gaya utama
+===================================================== */
+
+/* Kata tetap utuh, huruf di dalamnya tetap dianimasikan satu per satu. */
+.typing-word {
+    display: inline-block;
+    white-space: nowrap !important;
+}
+
+.typing-letter {
+    display: inline-block;
+    vertical-align: baseline;
+    max-width: none !important;
+}
+
+/* Jangan biarkan paragraf melebar keluar dari viewport. */
+.ketemu-content,
+.doa-content,
+.agenda-section,
+.couple-stack-section,
+.couple-stack-section .couple-person-block,
+.couple-stack-section .person-parent,
+.couple-stack-section .person-address {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.ketemu-subtitle,
+.ketemu-message,
+.doa-subtitle,
+.agenda-quote p,
+.couple-stack-section .person-parent,
+.couple-stack-section .person-address {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 6px;
+    padding-right: 6px;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+/* Pastikan kartu polaroid tidak mendorong halaman horizontal. */
+.couple-stack-section .person-polaroid,
+.couple-stack-section .person-polaroid-photo {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Kurangi biaya render dekorasi blur/backdrop di HP. */
+@media (max-width: 600px) {
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden !important;
+    }
+
+    .ketemu-section {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .ketemu-content {
+        width: 100%;
+        max-width: 360px;
+    }
+
+    .ketemu-subtitle {
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .doa-content {
+        width: 100%;
+        max-width: 360px;
+    }
+
+    .doa-subtitle {
+        width: min(100%, 310px);
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .couple-stack-section .couple-person-block {
+        width: min(92vw, 360px);
+    }
+
+    .couple-stack-section .person-parent {
+        width: min(100%, 330px);
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: 14px;
+        line-height: 1.65;
+    }
+
+    .couple-stack-section .person-address {
+        width: min(100%, 310px);
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    /* Dekorasi yang hanya bergerak tidak perlu GPU terus-menerus. */
+    .agenda-section::before,
+    .agenda-section::after,
+    .couple-section::before,
+    .couple-section::after,
+    .ketemu-flower,
+    .ketemu-sparkle,
+    .ketemu-orb {
+        will-change: auto;
+    }
+
+    /* Blur backdrop adalah salah satu efek mahal di HP. Tetap cantik,
+       tetapi lebih ringan daripada blur besar. */
+    .countdown-box {
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+}
+
+/* Browser modern dapat melewati layout/pain section yang masih jauh di bawah.
+   Intrinsic size menjaga scrollbar tetap stabil. */
+@supports (content-visibility: auto) {
+    .acara-section,
+    .agenda-section,
+    .couple-stack-section,
+    .gallery-section,
+    .dresscode-section,
+    .gift-section,
+    .doa-section,
+    .ketemu-section {
+        content-visibility: auto;
+        contain-intrinsic-size: 700px;
     }
 }
